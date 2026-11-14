@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI Student Career & Job Portal — free job alerts, AI job matching, secure documents and application assistance for students.">
+<meta name="robots" content="index, follow">
+<title>Student Career &amp; Job Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ROYAL BLUE / WHITE / LIGHT GREY theme + green accents.
+   Mobile-first. No frameworks — single file, zero build step.
+   ============================================================ */
+:root{
+  --blue:#1d4ed8; --blue-dark:#1e3a8a; --blue-deep:#172e7c; --blue-soft:#eff6ff;
+  --blue-line:#bfdbfe; --green:#16a34a; --green-soft:#f0fdf4; --green-line:#bbf7d0;
+  --grey:#f1f5f9; --grey-2:#e2e8f0; --ink:#0f172a; --muted:#475569; --faint:#64748b;
+  --amber:#b45309; --amber-soft:#fffbeb; --amber-line:#fde68a;
+  --red:#b91c1c; --red-soft:#fef2f2; --red-line:#fecaca;
+  --card:#ffffff; --radius:14px; --shadow:0 1px 3px rgba(15,23,42,.08),0 4px 14px rgba(15,23,42,.06);
+  --font:'Inter','Noto Sans Devanagari',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--grey);color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img,svg{display:block}
+a{color:var(--blue);text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:15px}
+h1,h2,h3,h4{line-height:1.3;font-weight:700}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.hide{display:none!important}
+.muted{color:var(--muted)}.faint{color:var(--faint);font-size:13px}
+.center{text-align:center}
+.mt8{margin-top:8px}.mt16{margin-top:16px}.mt24{margin-top:24px}.mb8{margin-bottom:8px}.mb16{margin-bottom:16px}
+.row{display:flex;align-items:center;gap:10px}
+.row.wrapf{flex-wrap:wrap}
+.spread{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+.grid3{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.grid3{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- buttons / inputs ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;font-weight:600;font-size:14.5px;padding:11px 18px;border:1px solid transparent;transition:.15s;min-height:44px}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue-dark)}
+.btn.green{background:var(--green);color:#fff}
+.btn.green:hover{filter:brightness(.94)}
+.btn.ghost{background:#fff;color:var(--blue);border-color:var(--blue-line)}
+.btn.ghost:hover{background:var(--blue-soft)}
+.btn.danger{background:var(--red-soft);color:var(--red);border-color:var(--red-line)}
+.btn.sm{padding:7px 12px;min-height:34px;font-size:13px;border-radius:8px}
+.btn.block{width:100%}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn .spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+.btn.ghost .spin{border-color:var(--blue-line);border-top-color:var(--blue)}
+@keyframes sp{to{transform:rotate(360deg)}}
+label.f{display:block;margin-bottom:14px}
+label.f span{display:block;font-weight:600;font-size:13.5px;margin-bottom:6px;color:var(--ink)}
+label.f .req{color:var(--red)}
+.input,select.input,textarea.input{width:100%;border:1.5px solid #cbd5e1;border-radius:10px;padding:11px 13px;background:#fff;outline:none;transition:border .15s,box-shadow .15s}
+.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,216,.14)}
+textarea.input{resize:vertical;min-height:74px}
+.hint{font-size:12.5px;color:var(--faint);margin-top:5px}
+.err{font-size:13px;color:var(--red);margin-top:6px}
+.checkline{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--muted)}
+.checkline input{margin-top:3px;accent-color:var(--blue);width:16px;height:16px;flex:none}
+
+/* ---------- cards / badges / chips ---------- */
+.card{background:var(--card);border:1px solid var(--grey-2);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.card.pad0{padding:0}
+.card h3{font-size:16.5px;margin-bottom:4px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;letter-spacing:.3px;padding:3px 9px;border-radius:999px;text-transform:uppercase}
+.b-green{background:var(--green-soft);color:var(--green);border:1px solid var(--green-line)}
+.b-blue{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line)}
+.b-amber{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber-line)}
+.b-red{background:var(--red-soft);color:var(--red);border:1px solid var(--red-line)}
+.b-grey{background:var(--grey);color:var(--muted);border:1px solid var(--grey-2)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--blue-soft);color:var(--blue-dark);border:1px solid var(--blue-line);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600}
+.chip button{border:0;background:transparent;color:inherit;font-weight:800;font-size:14px;line-height:1;padding:0 0 0 2px}
+.kv{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed var(--grey-2);font-size:14px}
+.kv:last-child{border-bottom:0}
+.kv b{font-weight:600;text-align:right}
+.kv span{color:var(--muted);flex:none}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.dot.g{background:var(--green)}.dot.a{background:#f59e0b}.dot.r{background:var(--red)}.dot.b{background:var(--blue)}
+
+/* ---------- toast ---------- */
+#toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:12px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:.25s;max-width:88vw;z-index:200;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.ok{background:#14532d}#toast.bad{background:#7f1d1d}
+
+/* ---------- header ---------- */
+header.top{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--grey-2)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:60px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;color:var(--blue-dark);font-size:15.5px;white-space:nowrap}
+.logo .mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--blue),var(--blue-dark));display:grid;place-items:center;flex:none}
+.logo .mark svg{width:19px;height:19px}
+.hbtn{position:relative;width:40px;height:40px;border-radius:10px;border:1px solid var(--grey-2);background:#fff;display:grid;place-items:center;color:var(--muted)}
+.hbtn:hover{border-color:var(--blue-line);color:var(--blue)}
+.hbtn svg{width:19px;height:19px}
+.hbtn .ndot{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:10px;font-weight:800;min-width:17px;height:17px;border-radius:999px;display:grid;place-items:center;padding:0 4px}
+.langtog{border:1.5px solid var(--blue-line);background:var(--blue-soft);color:var(--blue-dark);border-radius:999px;font-weight:700;font-size:12.5px;padding:7px 13px;min-height:0}
+
+/* ---------- landing ---------- */
+.hero{background:linear-gradient(160deg,var(--blue-deep),var(--blue) 55%,#2563eb);color:#fff;padding:44px 0 54px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.4px}
+.hero h1{font-size:clamp(26px,6vw,40px);margin:16px 0 12px;max-width:640px}
+.hero p.sub{font-size:16px;opacity:.92;max-width:560px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.hero .cta .btn.white{background:#fff;color:var(--blue-dark)}
+.hero .cta .btn.line{border-color:rgba(255,255,255,.5);color:#fff;background:transparent}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:34px;max-width:520px}
+.stats .s{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 14px}
+.stats .s b{font-size:20px;display:block}
+.stats .s span{font-size:12px;opacity:.85}
+.sect{padding:34px 0}
+.sect>.wrap>h2{font-size:21px;margin-bottom:6px}
+.sect>.wrap>p.lead{color:var(--muted);margin-bottom:20px;font-size:14.5px}
+.catgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:760px){.catgrid{grid-template-columns:repeat(4,1fr)}}
+.catcard{background:#fff;border:1px solid var(--grey-2);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:.15s;text-align:left}
+.catcard:hover{border-color:var(--blue-line);box-shadow:var(--shadow);transform:translateY(-2px)}
+.catcard b{font-size:13.5px;color:var(--ink)}
+.catcard span{font-size:12px;color:var(--faint)}
+.featrow{display:grid;gap:12px}
+@media(min-width:760px){.featrow{grid-template-columns:repeat(2,1fr)}}
+.feat{background:#fff;border:1px solid var(--grey-2);border-radius:12px;padding:16px;display:flex;gap:13px}
+.feat .ic{width:40px;height:40px;border-radius:10px;background:var(--blue-soft);display:grid;place-items:center;flex:none;color:var(--blue)}
+.feat .ic.g{background:var(--green-soft);color:var(--green)}
+.feat b{display:block;font-size:14.5px;margin-bottom:3px}
+.feat p{font-size:13px;color:var(--muted)}
+.steps{counter-reset:st;display:grid;gap:12px}
+@media(min-width:760px){.steps{grid-template-columns:repeat(2,1fr)}}
+.step{background:#fff;border:1px solid var(--grey-2);border-radius:12px;padding:16px 16px 16px 52px;position:relative;font-size:13.5px;color:var(--muted)}
+.step::before{counter-increment:st;content:counter(st);position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:8px;background:var(--blue);color:#fff;font-weight:800;font-size:13px;display:grid;place-items:center}
+.step b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+.trust{background:#fff;border-top:1px solid var(--grey-2);border-bottom:1px solid var(--grey-2);padding:22px 0}
+.trust .wrap{display:flex;gap:26px;flex-wrap:wrap;justify-content:center}
+.trust .t{display:flex;gap:9px;align-items:center;font-size:13px;color:var(--muted);font-weight:600}
+.trust .t svg{width:17px;height:17px;color:var(--green)}
+footer.site{background:var(--blue-dark);color:#cbd5e1;padding:30px 0 40px;margin-top:20px}
+footer.site a{color:#e2e8f0}
+footer.site .cols{display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between}
+footer.site h4{color:#fff;font-size:14px;margin-bottom:9px}
+footer.site ul{list-style:none;font-size:13.5px}
+footer.site li{margin-bottom:7px}
+footer.site .fine{margin-top:22px;font-size:12px;color:#94a3b8;border-top:1px solid rgba(255,255,255,.14);padding-top:14px}
+
+/* ---------- auth ---------- */
+.authwrap{min-height:calc(100vh - 60px);display:grid;place-items:center;padding:26px 16px}
+.authcard{width:100%;max-width:430px;background:#fff;border:1px solid var(--grey-2);border-radius:16px;box-shadow:var(--shadow);padding:26px 22px}
+.authcard h2{font-size:20px;margin-bottom:4px}
+.authtabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--grey);padding:5px;border-radius:11px;margin-bottom:20px}
+.authtabs button{border:0;background:transparent;padding:9px;border-radius:8px;font-weight:600;color:var(--muted);font-size:14px}
+.authtabs button.on{background:#fff;color:var(--blue);box-shadow:0 1px 3px rgba(15,23,42,.12)}
+
+/* ---------- app shell ---------- */
+.shell{display:flex;min-height:calc(100vh - 60px)}
+aside.side{display:none}
+@media(min-width:1024px){
+  aside.side{display:block;width:232px;flex:none;background:#fff;border-right:1px solid var(--grey-2);padding:18px 12px;position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto}
+  main.content{flex:1;min-width:0;padding:22px 26px 60px}
+}
+.side .usercard{background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:12px;padding:12px;margin-bottom:14px}
+.side .usercard b{display:block;font-size:14px;color:var(--blue-dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side .usercard span{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+nav.snav{display:flex;flex-direction:column;gap:2px}
+nav.snav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:var(--muted);font-weight:600;font-size:14px}
+nav.snav a svg{width:18px;height:18px;flex:none}
+nav.snav a:hover{background:var(--grey);color:var(--ink)}
+nav.snav a.on{background:var(--blue-soft);color:var(--blue-dark)}
+nav.snav .grp{font-size:11px;font-weight:800;letter-spacing:.8px;color:var(--faint);text-transform:uppercase;padding:14px 12px 4px}
+main.content{padding:16px 16px 96px;flex:1;min-width:0}
+@media(min-width:1024px){main.content{padding:22px 26px 60px}}
+.pgtitle{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.pgtitle h2{font-size:19px}
+.pgtitle p{font-size:13.5px;color:var(--muted);margin-top:2px}
+
+/* ---------- bottom nav (mobile) ---------- */
+nav.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--grey-2);display:flex;z-index:70;padding-bottom:env(safe-area-inset-bottom)}
+@media(min-width:1024px){nav.bottom{display:none}}
+nav.bottom a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px 10px;font-size:10.5px;font-weight:600;color:var(--faint)}
+nav.bottom a svg{width:21px;height:21px}
+nav.bottom a.on{color:var(--blue)}
+nav.bottom a.on svg{color:var(--blue)}
+nav.bottom a svg{color:#94a3b8}
+
+/* ---------- more sheet ---------- */
+#moresheet{position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:90;display:none}
+#moresheet.open{display:block}
+#moresheet .panel{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;padding:18px 18px calc(20px + env(safe-area-inset-bottom));max-height:78vh;overflow:auto}
+#moresheet .bar{width:42px;height:4px;border-radius:4px;background:var(--grey-2);margin:0 auto 14px}
+.mlist{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mlist a{display:flex;align-items:center;gap:9px;border:1px solid var(--grey-2);border-radius:11px;padding:12px;font-weight:600;font-size:13px;color:var(--ink)}
+.mlist a svg{width:17px;height:17px;color:var(--blue);flex:none}
+
+/* ---------- job cards ---------- */
+.job{background:#fff;border:1px solid var(--grey-2);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.job .head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.job h4{font-size:15.5px;line-height:1.35}
+.job .org{font-size:13px;color:var(--muted);margin-top:2px}
+.job .facts{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted)}
+.job .facts .f{display:flex;align-items:center;gap:5px}
+.job .facts svg{width:14px;height:14px;color:var(--faint)}
+.job .dates{display:flex;gap:8px;flex-wrap:wrap;font-size:12.5px}
+.job .dates .d{background:var(--grey);border-radius:8px;padding:5px 10px;color:var(--muted)}
+.job .dates .d b{color:var(--ink)}
+.job .dates .d.warn b{color:var(--amber)}
+.job .dates .d.past b{color:var(--red)}
+.job .actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px dashed var(--grey-2);padding-top:12px;margin-top:2px}
+.job .src{font-size:11.5px;color:var(--faint)}
+.matchbar{height:7px;border-radius:6px;background:var(--grey-2);overflow:hidden}
+.matchbar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#22c55e);border-radius:6px}
+.reasons{list-style:none;font-size:12.5px;color:var(--muted);display:grid;gap:4px}
+.reasons li{display:flex;gap:7px;align-items:flex-start}
+.reasons li svg{width:14px;height:14px;flex:none;margin-top:2px}
+.reasons li.ok svg{color:var(--green)}
+.reasons li.no svg{color:var(--red)}
+
+/* ---------- chat ---------- */
+.chatbox{display:flex;flex-direction:column;gap:10px;min-height:46vh}
+.chatmsg{max-width:86%;padding:11px 14px;border-radius:14px;font-size:14px;white-space:pre-wrap}
+.chatmsg.bot{background:#fff;border:1px solid var(--grey-2);border-bottom-left-radius:5px;align-self:flex-start}
+.chatmsg.me{background:var(--blue);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+.chatinput{display:flex;gap:8px;position:sticky;bottom:0}
+.chatinput .input{flex:1}
+.qchips{display:flex;gap:7px;flex-wrap:wrap}
+.qchips button{border:1px solid var(--blue-line);background:var(--blue-soft);color:var(--blue-dark);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600}
+
+/* ---------- timeline ---------- */
+.tl{display:flex;flex-direction:column}
+.tl .tstep{display:flex;gap:12px;position:relative;padding-bottom:16px}
+.tl .tstep:last-child{padding-bottom:2px}
+.tl .tstep::before{content:"";position:absolute;left:10px;top:24px;bottom:0;width:2px;background:var(--grey-2)}
+.tl .tstep:last-child::before{display:none}
+.tl .tdot{width:22px;height:22px;border-radius:50%;background:var(--grey-2);display:grid;place-items:center;flex:none}
+.tl .tstep.done .tdot{background:var(--green)}
+.tl .tstep.now .tdot{background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.tl .tdot svg{width:12px;height:12px;color:#fff}
+.tl b{font-size:13.5px;display:block}
+.tl span{font-size:12px;color:var(--faint)}
+
+/* ---------- table (admin / desktop lists) ---------- */
+.tblwrap{overflow-x:auto;border:1px solid var(--grey-2);border-radius:12px;background:#fff}
+table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px}
+table.tbl th{background:var(--grey);text-align:left;padding:10px 12px;font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+table.tbl td{padding:11px 12px;border-top:1px solid var(--grey-2);vertical-align:middle}
+table.tbl tr:hover td{background:#f8fafc}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{border:1px solid var(--grey-2);background:#fff;border-radius:999px;padding:8px 15px;font-weight:600;font-size:13px;color:var(--muted)}
+.tabs button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.count-pill{background:var(--grey);border-radius:8px;padding:4px 9px;font-size:12px;font-weight:700;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:760px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:#fff;border:1px solid var(--grey-2);border-radius:12px;padding:14px}
+.kpi b{font-size:22px;display:block;color:var(--blue-dark)}
+.kpi span{font-size:12px;color:var(--muted)}
+
+/* ---------- legal ---------- */
+.legal{background:#fff;border:1px solid var(--grey-2);border-radius:var(--radius);padding:24px;max-width:860px}
+.legal h2{font-size:20px;margin-bottom:4px}
+.legal h3{font-size:15.5px;margin:18px 0 6px;color:var(--blue-dark)}
+.legal p,.legal li{font-size:14px;color:var(--muted);margin-bottom:8px}
+.legal ul{padding-left:20px}
+.legal .updated{font-size:12.5px;color:var(--faint);margin-bottom:14px}
+
+/* ---------- setup screen ---------- */
+#setup-screen{min-height:100vh;background:linear-gradient(160deg,var(--blue-deep),var(--blue));padding:34px 16px;display:grid;place-items:start center}
+.setup-card{max-width:720px;width:100%;background:#fff;border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.setup-card .hd{background:var(--blue-soft);border-bottom:1px solid var(--blue-line);padding:22px 24px}
+.setup-card .hd h1{font-size:19px;color:var(--blue-dark)}
+.setup-card .bd{padding:22px 24px}
+.setup-card ol{padding-left:22px;display:grid;gap:10px;font-size:14px;color:var(--muted)}
+.setup-card code{background:var(--grey);border:1px solid var(--grey-2);border-radius:6px;padding:2px 7px;font-size:12.5px;font-family:ui-monospace,monospace;color:var(--blue-dark);word-break:break-all}
+.setup-card pre{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:14px;font-size:12px;overflow-x:auto;font-family:ui-monospace,monospace;line-height:1.6}
+.setup-card .warnbox{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--amber);margin-top:14px}
+.spinwrap{display:grid;place-items:center;padding:60px 20px;color:var(--faint)}
+.spinner{width:34px;height:34px;border:3px solid var(--blue-line);border-top-color:var(--blue);border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 12px}
+.empty{background:#fff;border:1.5px dashed var(--grey-2);border-radius:14px;padding:34px 20px;text-align:center;color:var(--muted);font-size:14px}
+.empty svg{width:38px;height:38px;color:#cbd5e1;margin:0 auto 10px}
+@media print{nav.bottom,header.top,aside.side{display:none}}
+</style>
+</head>
+<body>
+<noscript><div style="padding:40px;text-align:center;font-family:sans-serif">This portal requires JavaScript. / इस पोर्टल के लिए JavaScript आवश्यक है।</div></noscript>
+
+<!-- ================= SETUP SCREEN (shown until real Firebase config is pasted) ================= -->
+<div id="setup-screen" class="hide"></div>
+
+<!-- ================= APP ================= -->
+<div id="app" class="hide">
+  <header class="top">
+    <div class="wrap">
+      <a href="#/" class="logo" data-nav>
+        <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span>
+        <span id="brandname">Student Career &amp; Job Portal</span>
+      </a>
+      <span style="flex:1"></span>
+      <button class="langtog" id="langbtn" type="button">EN</button>
+      <button class="hbtn hide" id="bellbtn" type="button" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+        <span class="ndot hide" id="belldot">0</span>
+      </button>
+      <button class="hbtn hide" id="logoutbtn" type="button" aria-label="Logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
+    </div>
+  </header>
+  <div id="view"></div>
+  <nav class="bottom hide" id="bottomnav"></nav>
+  <div id="moresheet"><div class="panel"><div class="bar"></div><div id="morelist"></div></div></div>
+</div>
+<div id="toast" role="status"></div>
+<script type="module">
+/* ================================================================
+   STUDENT CAREER & JOB PORTAL — FINAL single-file website.
+   Real Firebase backend (Auth + Firestore + Storage). No demo data,
+   no fake actions: every button works against YOUR Firebase project.
+
+   ================================================================
+   >>> STEP 1 — PASTE YOUR FIREBASE WEB CONFIG BELOW <<<
+   Firebase Console -> Project settings -> General -> Your apps -> Web app
+   ================================================================ */
+const FIREBASE_CONFIG = {
+  apiKey:            "PASTE_YOUR_API_KEY",
+  authDomain:        "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
+  projectId:         "PASTE_YOUR_PROJECT_ID",
+  storageBucket:     "PASTE_YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "PASTE_YOUR_SENDER_ID",
+  appId:             "PASTE_YOUR_APP_ID",
+};
+
+/* ===== STEP 2 — Portal identity / contact settings (edit freely) ===== */
+const PORTAL_SETTINGS = {
+  siteName:       "Student Career & Job Portal",
+  siteNameHi:     "स्टूडेंट करियर एवं जॉब पोर्टल",
+  tagline:        "Free job alerts, AI matching and application help for students",
+  ownerName:      "Portal Administrator",           // shown in legal pages
+  grievanceEmail: "grievance@example.com",          // REQUIRED: your contact email
+  supportEmail:   "support@example.com",
+  grievancePhone: "+91-00000-00000",                // REQUIRED: grievance phone
+  postalAddress:  "Update this postal address in index.html (PORTAL_SETTINGS).",
+  upiId:          "",                               // used on the Wallet top-up page
+  upiNoteHi:      "UPI से भुगतान करें और Transaction ID यहाँ दर्ज करें। वॉलेट तभी क्रेडिट होगा जब एडमिन भुगतान सत्यापित करेगा।",
+  dataRetentionMonths: 24,
+  lastUpdated:    "2026-11-14",
+};
+
+/* ===== Firebase SDK (v10, official CDN — works on GitHub Pages) ===== */
+import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
+         onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, updateProfile }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc, collection,
+         query, where, getDocs, addDoc, writeBatch, limit as qLimit }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getStorage, ref as sRef, uploadBytes, deleteObject, getDownloadURL }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+/* ================================================================
+   BUSINESS CONSTANTS — identical to the project's security rules.
+   ================================================================ */
+const DOCUMENT_TYPES = [
+  { value:'AADHAAR', en:'Aadhaar Card', hi:'आधार कार्ड' },
+  { value:'PAN', en:'PAN Card', hi:'पैन कार्ड' },
+  { value:'PHOTO', en:'Passport Size Photo', hi:'पासपोर्ट फोटो' },
+  { value:'SIGNATURE', en:'Signature', hi:'हस्ताक्षर' },
+  { value:'TENTH_MARKSHEET', en:'10th Marksheet', hi:'10वीं मार्कशीट' },
+  { value:'TWELFTH_MARKSHEET', en:'12th Marksheet', hi:'12वीं मार्कशीट' },
+  { value:'GRADUATION', en:'Graduation Certificate', hi:'स्नातक प्रमाणपत्र' },
+  { value:'ITI', en:'ITI Certificate', hi:'आईटीआई प्रमाणपत्र' },
+  { value:'DIPLOMA', en:'Diploma Certificate', hi:'डिप्लोमा प्रमाणपत्र' },
+  { value:'RESUME', en:'Resume / CV', hi:'रिज़्यूमे / सीवी' },
+  { value:'CASTE', en:'Caste Certificate', hi:'जाति प्रमाणपत्र' },
+  { value:'DOMICILE', en:'Domicile Certificate', hi:'निवास प्रमाणपत्र' },
+  { value:'EXPERIENCE', en:'Experience Certificate', hi:'अनुभव प्रमाणपत्र' },
+  { value:'OTHER', en:'Other Document', hi:'अन्य दस्तावेज़' },
+];
+const JOB_CATEGORIES = [
+  { value:'GOVERNMENT', en:'Government Jobs', hi:'सरकारी नौकरी' },
+  { value:'PRIVATE', en:'Private Jobs', hi:'प्राइवेट नौकरी' },
+  { value:'BANKING', en:'Banking Jobs', hi:'बैंकिंग नौकरी' },
+  { value:'RAILWAY', en:'Railway Jobs', hi:'रेलवे नौकरी' },
+  { value:'TEACHING', en:'Teaching Jobs', hi:'शिक्षण नौकरी' },
+  { value:'IT', en:'IT Jobs', hi:'आईटी नौकरी' },
+  { value:'WORK_FROM_HOME', en:'Work From Home', hi:'वर्क फ्रॉम होम' },
+  { value:'APPRENTICESHIP', en:'Apprenticeship', hi:'अप्रेंटिसशिप' },
+  { value:'INTERNSHIP', en:'Internship', hi:'इंटर्नशिप' },
+  { value:'PART_TIME', en:'Part-Time Jobs', hi:'पार्ट-टाइम नौकरी' },
+  { value:'FULL_TIME', en:'Full-Time Jobs', hi:'फुल-टाइम नौकरी' },
+];
+const EDUCATION_LEVELS = [
+  { value:'TENTH', en:'10th (Secondary)', hi:'10वीं', rank:1 },
+  { value:'TWELFTH', en:'12th (Senior Secondary)', hi:'12वीं', rank:2 },
+  { value:'ITI', en:'ITI Certificate', hi:'आईटीआई', rank:3 },
+  { value:'DIPLOMA', en:'Diploma', hi:'डिप्लोमा', rank:4 },
+  { value:'GRADUATION', en:'Graduation', hi:'स्नातक', rank:5 },
+  { value:'POST_GRADUATION', en:'Post Graduation', hi:'स्नातकोत्तर', rank:6 },
+  { value:'OTHER', en:'Other', hi:'अन्य', rank:0 },
+];
+const WALLET = { MIN_TOPUP:100, MAX_BALANCE:1000, MIN_BALANCE:0 };
+const DOC_MAX_BYTES = 10*1024*1024;
+const DOC_ALLOWED_MIME = ['application/pdf','image/jpeg','image/jpg','image/png'];
+const INDIAN_STATES = ['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Delhi','Goa','Gujarat','Haryana','Himachal Pradesh','Jammu & Kashmir','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal','Other'];
+const RES_CATEGORIES = [
+  { value:'GENERAL', en:'General', hi:'सामान्य' },
+  { value:'EWS', en:'EWS', hi:'ईडब्ल्यूएस' },
+  { value:'OBC', en:'OBC', hi:'ओबीसी' },
+  { value:'SC', en:'SC', hi:'अनुसूचित जाति' },
+  { value:'ST', en:'ST', hi:'अनुसूचित जनजाति' },
+];
+const APP_STATUSES = ['DRAFT','READY','APPROVED','SUBMITTED','UNDER_REVIEW','INTERVIEW','SUCCESS','REJECTED','WITHDRAWN'];
+
+/* ================================================================
+   I18N — Hindi / English.
+   ================================================================ */
+const I18N = {
+  /* landing + common */
+  hero_badge:{hi:'छात्रों के लिए 100% मुफ़्त',en:'100% FREE for students'},
+  hero_title:{hi:'सरकारी और प्राइवेट नौकरियाँ, AI मैचिंग और आवेदन में मदद — सब एक जगह',en:'Government & private jobs, AI matching and application help — all in one place'},
+  hero_sub:{hi:'मुफ़्त खाता बनाएं, अपनी शिक्षा और दस्तावेज़ जोड़ें, रोज़ नई नौकरियाँ पाएं और AI असिस्टेंट के साथ आवेदन तैयार करें।',en:'Create a free account, add your education and documents, get daily job updates and prepare applications with the AI assistant.'},
+  cta_register:{hi:'मुफ़्त रजिस्टर करें',en:'Register Free'},
+  cta_login:{hi:'लॉगिन करें',en:'Login'},
+  cta_browse:{hi:'नौकरियाँ देखें',en:'Browse Jobs'},
+  stat_jobs:{hi:'लाइव जॉब पोस्टिंग',en:'Live job posts'},
+  stat_cat:{hi:'नौकरी श्रेणियाँ',en:'Job categories'},
+  stat_free:{hi:'छात्रों के लिए मुफ़्त',en:'Free for students'},
+  sec_categories:{hi:'सभी 11 श्रेणियाँ',en:'All 11 categories'},
+  sec_categories_sub:{hi:'सरकारी, बैंकिंग, रेलवे, टीचिंग, आईटी, इंटर्नशिप और बहुत कुछ।',en:'Government, banking, railway, teaching, IT, internships and more.'},
+  sec_features:{hi:'पोर्टल की खासियतें',en:'What this portal offers'},
+  sec_how:{hi:'कैसे काम करता है',en:'How it works'},
+  step1_t:{hi:'मुफ़्त खाता बनाएं',en:'Create a free account'},step1_d:{hi:'Gmail, पासवर्ड और मोबाइल नंबर से रजिस्टर करें और ईमेल सत्यापित करें।',en:'Register with Gmail, password and mobile number, then verify your email.'},
+  step2_t:{hi:'प्रोफ़ाइल और दस्तावेज़ जोड़ें',en:'Add profile & documents'},step2_d:{hi:'शिक्षा, कौशल और 14 प्रकार के दस्तावेज़ सुरक्षित रूप से अपलोड करें।',en:'Add education, skills and upload 14 types of documents securely.'},
+  step3_t:{hi:'AI से मैच की गई नौकरियाँ देखें',en:'See AI-matched jobs'},step2_alt_d:{hi:'AI इंजन आपकी योग्यता, उम्र और स्थान के अनुसार नौकरियाँ सुझाता है।',en:'The engine suggests jobs matching your qualification, age and location.'},
+  step3_d:{hi:'AI इंजन आपकी योग्यता, उम्र और स्थान के अनुसार नौकरियाँ सुझाता है।',en:'The engine suggests jobs matching your qualification, age and location.'},
+  step4_t:{hi:'आवेदन करें',en:'Apply'},step4_d:{hi:'प्री-फिल्ड ड्राफ्ट स्वीकार करें और आधिकारिक लिंक से आवेदन जमा करें।',en:'Approve the pre-filled draft and submit through the official link.'},
+  f_match:{hi:'AI जॉब मैचिंग',en:'AI job matching'},f_match_d:{hi:'शिक्षा, उम्र, कौशल, स्थान और श्रेणी के आधार पर पारदर्शी स्कोर और कारण।',en:'Transparent score and reasons based on education, age, skills, location and category.'},
+  f_docs:{hi:'सुरक्षित दस्तावेज़ लॉकर',en:'Secure document locker'},f_docs_d:{hi:'दस्तावेज़ निजी फ़ोल्डर में रहते हैं — केवल आप और (आवश्यक होने पर) एडमिन देख सकते हैं।',en:'Documents stay in your private folder — only you (and admins when required) can access them.'},
+  f_assist:{hi:'AI आवेदन सहायक',en:'AI application assistant'},f_assist_d:{hi:'आपकी जानकारी से फ़ॉर्म ड्राफ्ट तैयार करता है — जमा करने से पहले आपकी स्पष्ट स्वीकृति ज़रूरी।',en:'Prepares form drafts from your data — your explicit approval is required before anything proceeds.'},
+  f_alert:{hi:'डेडलाइन अलर्ट',en:'Deadline alerts'},f_alert_d:{hi:'आखिरी तारीख नज़दीक होने पर सूचना और ईमेल रिमाइंडर।',en:'Website notification and email reminder when the last date is near.'},
+  f_wallet:{hi:'₹1,000 तक का वॉलेट',en:'Wallet up to ₹1,000'},f_wallet_d:{hi:'हर रुपये का लेजर रिकॉर्ड — पूरा लेन-देन इतिहास देखें।',en:'Every rupee is recorded in a ledger — see your complete transaction history.'},
+  f_alerts_daily:{hi:'रोज़ की जॉब अपडेट',en:'Daily job updates'},f_alerts_daily_d:{hi:'नई पोस्ट होने पर सूचनाएँ — कभी कोई मौका न छूटे।',en:'Notifications for new postings — never miss an opportunity.'},
+  t_privacy:{hi:'प्राइवेट और सुरक्षित',en:'Private & secure'},
+  /* auth */
+  login:{hi:'लॉगिन',en:'Login'},register:{hi:'रजिस्टर',en:'Register'},
+  full_name:{hi:'पूरा नाम',en:'Full Name'},email_gmail:{hi:'Gmail पता',en:'Gmail Address'},
+  password:{hi:'पासवर्ड',en:'Password'},confirm_password:{hi:'पासवर्ड (दोबारा)',en:'Confirm Password'},
+  mobile:{hi:'मोबाइल नंबर (10 अंक)',en:'Mobile Number (10 digits)'},
+  dob:{hi:'जन्म तिथि',en:'Date of Birth'},
+  agree_terms:{hi:'मैं सेवा की शर्तें और गोपनीयता नीति पढ़कर स्वीकार करता/करती हूँ।',en:'I have read and accept the Terms of Service and Privacy Policy.'},
+  e_name:{hi:'कृपया पूरा नाम लिखें (कम से कम 2 अक्षर)।',en:'Please enter your full name (min 2 letters).'},
+  e_gmail:{hi:'केवल @gmail.com पता मान्य है।',en:'Only a valid @gmail.com address is accepted.'},
+  e_pass:{hi:'पासवर्ड में कम से कम 8 अक्षर हों और उसमें अक्षर + संख्या हों।',en:'Password needs 8+ characters including letters and numbers.'},
+  e_match:{hi:'दोनों पासवर्ड मेल नहीं खाते।',en:'Passwords do not match.'},
+  e_mobile:{hi:'मोबाइल नंबर 6-9 से शुरू होकर 10 अंक का होना चाहिए।',en:'Mobile must be 10 digits starting with 6-9.'},
+  e_dob:{hi:'मान्य जन्म तिथि चुनें।',en:'Choose a valid date of birth.'},
+  e_terms:{hi:'शर्तें स्वीकार करना अनिवार्य है।',en:'You must accept the terms.'},
+  e_pass_match:{hi:'पासवर्ड और दोबारा पासवर्ड मेल खाने चाहिए।',en:'Password and confirm password must match.'},
+  acct_exists:{hi:'इस ईमेल से खाता पहले से है — लॉगिन करें।',en:'An account with this email already exists — please login.'},
+  weak_or_used:{hi:'पासवर्ड कमज़ोर है या ईमेल पहले से उपयोग में है।',en:'Weak password or email already in use.'},
+  wrong_cred:{hi:'ईमेल या पासवर्ड गलत है।',en:'Invalid email or password.'},
+  verify_sent:{hi:'सत्यापन ईमेल भेजा गया! अपना Gmail खोलकर लिंक पर क्लिक करें, फिर लॉगिन करें।',en:'Verification email sent! Open your Gmail, click the link, then login.'},
+  not_verified:{hi:'आपका ईमेल सत्यापित नहीं है। पहले Gmail में लिंक पर क्लिक करें।',en:'Your email is not verified. Click the link in Gmail first.'},
+  resend_ok:{hi:'सत्यापन ईमेल दोबारा भेज दिया गया।',en:'Verification email re-sent.'},
+  reset_ok:{hi:'पासवर्ड रीसेट लिंक आपके ईमेल पर भेज दिया गया।',en:'Password reset link sent to your email.'},
+  forgot_pass:{hi:'पासवर्ड भूल गए?',en:'Forgot password?'},
+  /* nav + student */
+  nav_home:{hi:'होम',en:'Home'},nav_dashboard:{hi:'डैशबोर्ड',en:'Dashboard'},
+  nav_profile:{hi:'मेरी प्रोफ़ाइल',en:'My Profile'},nav_education:{hi:'मेरी शिक्षा',en:'My Education'},
+  nav_documents:{hi:'मेरे दस्तावेज़',en:'My Documents'},nav_jobs:{hi:'नौकरियाँ खोजें',en:'Find Jobs'},
+  nav_reco:{hi:'सुझाई गई नौकरियाँ',en:'Recommended'},nav_assist:{hi:'AI जॉब असिस्टेंट',en:'AI Job Assistant'},
+  nav_apps:{hi:'मेरे आवेदन',en:'My Applications'},nav_wallet:{hi:'मेरा वॉलेट',en:'My Wallet'},
+  nav_tx:{hi:'लेन-देन इतिहास',en:'Transactions'},nav_notif:{hi:'सूचनाएँ',en:'Notifications'},
+  nav_settings:{hi:'खाता सेटिंग्स',en:'Account Settings'},nav_admin:{hi:'एडमिन पैनल',en:'Admin Panel'},
+  grp_main:{hi:'मुख्य',en:'Main'},grp_career:{hi:'करियर',en:'Career'},grp_account:{hi:'खाता',en:'Account'},
+  save:{hi:'सहेजें',en:'Save'},saved:{hi:'सहेज लिया गया',en:'Saved'},add:{hi:'जोड़ें',en:'Add'},
+  cancel:{hi:'रद्द करें',en:'Cancel'},delete:{hi:'हटाएं',en:'Delete'},edit:{hi:'संपादित करें',en:'Edit'},
+  upload:{hi:'अपलोड करें',en:'Upload'},view:{hi:'देखें',en:'View'},refresh:{hi:'रिफ्रेश',en:'Refresh'},
+  apply:{hi:'आवेदन करें',en:'Apply'},official_link:{hi:'आधिकारिक लिंक',en:'Official Link'},
+  loading:{hi:'लोड हो रहा है…',en:'Loading…'},
+  /* dashboard */
+  welc:{hi:'स्वागत है',en:'Welcome'},
+  verify_banner:{hi:'ईमेल सत्यापित करें — प्रोफ़ाइल, दस्तावेज़ और आवेदन के लिए ज़रूरी। Gmail में भेजा लिंक खोलें।',en:'Verify your email — required for profile, documents and applications. Open the link sent to your Gmail.'},
+  resend_verify:{hi:'सत्यापन ईमेल दोबारा भेजें',en:'Resend verification email'},
+  profile_complete:{hi:'प्रोफ़ाइल पूर्णता',en:'Profile completeness'},
+  d_docs:{hi:'दस्तावेज़',en:'Documents'},d_apps:{hi:'आवेदन',en:'Applications'},
+  d_balance:{hi:'वॉलेट बैलेंस',en:'Wallet balance'},d_matches:{hi:'मैच की गई नौकरियाँ',en:'Matched jobs'},
+  quick_links:{hi:'त्वरित लिंक',en:'Quick links'},
+  recent_notifs:{hi:'हाल की सूचनाएँ',en:'Recent notifications'},
+  /* profile */
+  profile_info:{hi:'व्यक्तिगत जानकारी',en:'Personal information'},
+  state:{hi:'राज्य',en:'State'},district:{hi:'ज़िला',en:'District'},
+  category:{hi:'श्रेणी (आरक्षण)',en:'Category (Reservation)'},select:{hi:'चुनें',en:'Select'},
+  skills:{hi:'कौशल (स्किल्स)',en:'Skills'},skills_hint:{hi:'जैसे: MS Office, Tally, Data Entry — Enter से जोड़ें',en:'e.g. MS Office, Tally, Data Entry — press Enter to add'},
+  experience:{hi:'कार्य अनुभव (यदि हो)',en:'Work experience (if any)'},
+  pref_cats:{hi:'पसंदीदा जॉब श्रेणियाँ',en:'Preferred job categories'},
+  /* education */
+  add_education:{hi:'शिक्षा जोड़ें',en:'Add education'},
+  edu_level:{hi:'स्तर',en:'Level'},board:{hi:'बोर्ड / विश्वविद्यालय',en:'Board / University'},
+  year:{hi:'उत्तीर्ण वर्ष',en:'Year of passing'},pct:{hi:'प्रतिशत / CGPA',en:'Percentage / CGPA'},
+  roll:{hi:'रोल / रजिस्ट्रेशन नं.',en:'Roll / Registration No.'},
+  edu_note:{hi:'प्रविष्टियाँ स्थायी रिकॉर्ड हैं — गलती होने पर समर्थन से संपर्क करें।',en:'Entries are permanent records — contact support for corrections.'},
+  /* documents */
+  docs_note:{hi:'दस्तावेज़ आपके निजी Storage फ़ोल्डर में सुरक्षित रहते हैं। केवल PDF / JPG / PNG, अधिकतम 10MB।',en:'Documents stay in your private Storage folder. PDF / JPG / PNG only, max 10MB.'},
+  doc_type:{hi:'दस्तावेज़ प्रकार',en:'Document type'},choose_file:{hi:'फ़ाइल चुनें',en:'Choose file'},
+  uploading:{hi:'अपलोड हो रहा है…',en:'Uploading…'},uploaded:{hi:'अपलोड हो गया',en:'Uploaded'},
+  status_pending:{hi:'पेंडिंग',en:'Pending'},status_verified:{hi:'सत्यापित',en:'Verified'},status_rejected:{hi:'अस्वीकृत',en:'Rejected'},
+  reupload:{hi:'दोबारा अपलोड',en:'Replace'},
+  /* jobs */
+  search_jobs:{hi:'पद, संस्था या स्थान खोजें…',en:'Search post, organization or location…'},
+  all_cats:{hi:'सभी श्रेणियाँ',en:'All categories'},
+  qual:{hi:'योग्यता',en:'Qualification'},age:{hi:'उम्र',en:'Age'},vac:{hi:'रिक्तियाँ',en:'Vacancies'},
+  loc:{hi:'स्थान',en:'Location'},fee:{hi:'शुल्क (सामान्य)',en:'Fee (General)'},
+  apply_start:{hi:'आवेदन शुरू',en:'Apply from'},last_date:{hi:'आखिरी तारीख',en:'Last date'},
+  days_left:{hi:'दिन बचे',en:'days left'},closed:{hi:'बंद',en:'Closed'},
+  eligible:{hi:'योग्य',en:'ELIGIBLE'},not_eligible:{hi:'योग्य नहीं',en:'NOT ELIGIBLE'},check_why:{hi:'क्यों?',en:'why?'},
+  source:{hi:'स्रोत',en:'Source'},verified_badge:{hi:'एडमिन-सत्यापित',en:'Admin-verified'},
+  no_jobs:{hi:'अभी कोई पोस्ट की गई नौकरी नहीं है। कुछ समय बाद देखें।',en:'No published jobs yet. Please check again later.'},
+  apply_draft_ok:{hi:'आवेदन ड्राफ्ट बन गया — “मेरे आवेदन” में देखें।',en:'Application draft created — see “My Applications”.'},
+  /* recommended */
+  reco_note:{hi:'स्कोर आपकी शिक्षा (30), उम्र (25), कौशल (15), स्थान (10), श्रेणी पसंद (10) और प्रोफ़ाइल पूर्णता (10) पर आधारित है।',en:'Score is based on your education (30), age (25), skills (15), location (10), category preference (10) and profile completeness (10).'},
+  match_score:{hi:'मैच स्कोर',en:'Match score'},why_this:{hi:'यह नौकरी क्यों?',en:'Why this job?'},
+  complete_profile_hint:{hi:'बेहतर सुझावों के लिए प्रोफ़ाइल और शिक्षा पूरी करें।',en:'Complete your profile and education for better suggestions.'},
+  /* assistant */
+  assist_intro:{hi:'नमस्ते! मैं आपका जॉब असिस्टेंट हूँ। योग्यता, दस्तावेज़, आवेदन प्रक्रिया या किसी पोस्ट के बारे में पूछें। मैं आपके डेटा से आवेदन ड्राफ्ट भी तैयार कर सकता हूँ — जमा करने से पहले आपकी स्वीकृति अनिवार्य है और आवेदन हमेशा आधिकारिक लिंक पर आप ही करते हैं।',en:'Hello! I am your job assistant. Ask about eligibility, documents, how to apply, or any posting. I can also prepare an application draft from your data — your explicit approval is required, and submission always happens by you on the official link.'},
+  ask_ph:{hi:'सवाल लिखें…',en:'Type a question…'},
+  q_eligible:{hi:'मैं किन नौकरियों के लिए योग्य हूँ?',en:'Which jobs am I eligible for?'},
+  q_docs:{hi:'कौन से दस्तावेज़ चाहिए?',en:'Which documents do I need?'},
+  q_apply:{hi:'आवेदन कैसे करें?',en:'How do I apply?'},
+  q_deadline:{hi:'डेडलाइन वाली नौकरियाँ',en:'Jobs closing soon'},
+  draft_for:{hi:'इस पद के लिए ड्राफ्ट बनाएं',en:'Prepare draft for this post'},
+  draft_title:{hi:'आवेदन ड्राफ्ट (आपके प्रोफ़ाइल डेटा से)',en:'Application draft (from your profile data)'},
+  approve_create:{hi:'स्वीकार करें और ड्राफ्ट बनाएं',en:'Approve & create draft'},
+  assist_note:{hi:'सहायक नियम-आधारित है और आपका डेटा कहीं बाहर नहीं भेजता। यह कभी भी योग्यता/अंक/अनुभव नहीं बनाता और न ही आधिकारिक फ़ॉर्म पर आपके बिना कुछ जमा करता।',en:'The assistant is rule-based and never sends your data anywhere else. It never fabricates qualifications/marks/experience and never submits anything on official forms without you.'},
+  /* applications */
+  no_apps:{hi:'अभी कोई आवेदन नहीं। नौकरी कार्ड पर “आवेदन करें” या AI असिस्टेंट से ड्राफ्ट बनाएं।',en:'No applications yet. Use “Apply” on a job card or create a draft from the AI assistant.'},
+  ref_no:{hi:'रेफरेंस नं.',en:'Reference No.'},mark_submitted:{hi:'आधिकारिक जमा — संदर्भ नं. दर्ज करें',en:'Mark officially submitted — enter reference no.'},
+  withdraw:{hi:'आवेदन वापस लें',en:'Withdraw application'},withdrawn:{hi:'वापस लिया गया',en:'Withdrawn'},
+  st_DRAFT:{hi:'ड्राफ्ट',en:'Draft'},st_READY:{hi:'तैयार',en:'Ready'},st_APPROVED:{hi:'स्वीकृत',en:'Approved'},
+  st_SUBMITTED:{hi:'जमा किया',en:'Submitted'},st_UNDER_REVIEW:{hi:'समीक्षा में',en:'Under review'},
+  st_INTERVIEW:{hi:'इंटरव्यू',en:'Interview'},st_SUCCESS:{hi:'चयनित',en:'Selected'},
+  st_REJECTED:{hi:'अस्वीकृत',en:'Rejected'},st_WITHDRAWN:{hi:'वापस लिया',en:'Withdrawn'},
+  open_official:{hi:'आधिकारिक फ़ॉर्म खोलें',en:'Open official form'},
+  /* wallet */
+  balance:{hi:'बैलेंस',en:'Balance'},cap_note:{hi:'वॉलेट सीमा ₹100–₹1,000। न्यूनतम रिचार्ज ₹100।',en:'Wallet limits ₹100–₹1,000. Minimum top-up ₹100.'},
+  topup:{hi:'रिचार्ज अनुरोध',en:'Top-up request'},amount:{hi:'राशि (₹)',en:'Amount (₹)'},
+  txn_id:{hi:'UPI Transaction ID / UTR',en:'UPI Transaction ID / UTR'},payer:{hi:'भुगतानकर्ता का नाम',en:'Payer name'},
+  request_topup:{hi:'अनुरोध भेजें',en:'Submit request'},
+  topup_pending:{hi:'पेंडिंग रिचार्ज अनुरोध',en:'Pending top-up requests'},
+  topup_ok:{hi:'अनुरोध भेजा गया — एडमिन भुगतान सत्यापित करके वॉलेट क्रेडिट करेगा।',en:'Request sent — an admin will verify the payment and credit your wallet.'},
+  no_upi:{hi:'एडमिन ने अभी UPI ID सेट नहीं की — समर्थन ईमेल से संपर्क करें।',en:'Admin has not set a UPI ID yet — contact support by email.'},
+  ledger:{hi:'लेन-देन इतिहास (लेजर)',en:'Transaction history (ledger)'},
+  no_tx:{hi:'अभी कोई लेन-देन नहीं।',en:'No transactions yet.'},
+  tx_CREDIT:{hi:'क्रेडिट',en:'Credit'},tx_DEBIT:{hi:'डेबिट',en:'Debit'},tx_REFUND:{hi:'रीफंड',en:'Refund'},
+  /* notifications */
+  no_notifs:{hi:'अभी कोई सूचना नहीं।',en:'No notifications yet.'},mark_read:{hi:'पढ़ा हुआ मार्कें',en:'Mark read'},
+  /* settings */
+  change_pass:{hi:'पासवर्ड बदलें (ईमेल लिंक)',en:'Change password (email link)'},
+  export_data:{hi:'मेरा डेटा डाउनलोड करें (JSON)',en:'Download my data (JSON)'},
+  del_account:{hi:'खाता हटाने का अनुरोध',en:'Request account deletion'},
+  del_note:{hi:'अनुरोध एडमिन को जाएगा। नीति के अनुसार आवश्यक रिकॉर्ड रखे जाते हैं, बाकी डेटा हटा दिया जाएगा।',en:'The request goes to the admin. Required records are kept per policy; the rest of your data will be removed.'},
+  del_reason:{hi:'कारण (वैकल्पिक)',en:'Reason (optional)'},
+  del_sent:{hi:'हटाने का अनुरोध दर्ज हो गया।',en:'Deletion request recorded.'},
+  logout_done:{hi:'लॉगआउट हो गया',en:'Logged out'},
+  /* admin */
+  adm_dashboard:{hi:'डैशबोर्ड',en:'Dashboard'},adm_students:{hi:'छात्र',en:'Students'},
+  adm_jobs:{hi:'नौकरियाँ',en:'Jobs'},adm_docs:{hi:'दस्तावेज़ समीक्षा',en:'Documents'},
+  adm_apps:{hi:'आवेदन',en:'Applications'},adm_wallet:{hi:'वॉलेट स्वीकृति',en:'Wallet'},
+  adm_notifs:{hi:'सूचना भेजें',en:'Notifications'},adm_security:{hi:'ऑडिट लॉग',en:'Audit Log'},
+  k_students:{hi:'कुल छात्र',en:'Students'},k_jobs:{hi:'प्रकाशित नौकरियाँ',en:'Published jobs'},
+  k_apps:{hi:'आवेदन',en:'Applications'},k_pending:{hi:'पेंडिंग अनुरोध',en:'Pending requests'},
+  verify_profile:{hi:'प्रोफ़ाइल सत्यापित',en:'Verify profile'},suspend:{hi:'निलंबित',en:'Suspend'},activate:{hi:'सक्रिय',en:'Activate'},
+  add_job:{hi:'नई नौकरी जोड़ें',en:'Add new job'},publish:{hi:'प्रकाशित करें',en:'Publish'},unpublish:{hi:'ड्राफ्ट करें',en:'Unpublish'},
+  close_job:{hi:'बंद करें',en:'Close'},verify_src:{hi:'स्रोत सत्यापित',en:'Verify source'},
+  org:{hi:'संस्था / विभाग',en:'Organization'},dept:{hi:'विभाग',en:'Department'},
+  salary:{hi:'वेतन (टेक्स्ट)',en:'Salary (text)'},qual_text:{hi:'योग्यता (विवरण)',en:'Qualifications (text)'},
+  min_age:{hi:'न्यूनतम उम्र',en:'Min age'},max_age:{hi:'अधिकतम उम्र',en:'Max age'},
+  apply_url:{hi:'आधिकारिक आवेदन लिंक',en:'Official apply link'},src_url:{hi:'अधिसूचना / स्रोत URL',en:'Notification / source URL'},
+  src_name:{hi:'स्रोत का नाम',en:'Source name'},descr:{hi:'विवरण',en:'Description'},
+  skills_txt:{hi:'कौशल (कॉमा से)',en:'Skills (comma separated)'},vac_n:{hi:'रिक्तियाँ (संख्या)',en:'Vacancies (number)'},
+  fee_n:{hi:'शुल्क सामान्य (₹, 0 = निःशुल्क)',en:'Fee General (₹, 0 = free)'},
+  approve_tx:{hi:'क्रेडिट करें',en:'Approve & credit'},reject_tx:{hi:'अस्वीकारें',en:'Reject'},
+  send_notif:{hi:'सूचना भेजें',en:'Send notification'},to_all:{hi:'सभी सक्रिय छात्रों को',en:'To all active students'},
+  to_one:{hi:'एक छात्र को (Gmail)',en:'To one student (Gmail)'},
+  notif_title:{hi:'शीर्षक',en:'Title'},notif_body:{hi:'संदेश',en:'Message'},send:{hi:'भेजें',en:'Send'},
+  sent_ok:{hi:'सूचना भेज दी गई',en:'Notification sent'},
+  credited_ok:{hi:'वॉलेट क्रेडिट हो गया',en:'Wallet credited'},
+  only_admin:{hi:'यह पैनल केवल एडमिन (custom claim admin=true) के लिए है।',en:'This panel is for admins only (custom claim admin=true).'},
+  how_admin:{hi:'एडमिन बनने के लिए: Firebase Console → मैं एडमिन स्क्रिप्ट चलाऊंगा (README देखें) — claim admin=true सेट होने पर यह पैनल खुद खुल जाएगा।',en:'To become admin: run the set-admin script once (see README) — this panel opens automatically when claim admin=true is set.'},
+  /* legal */
+  legal_privacy:{hi:'गोपनीयता नीति',en:'Privacy Policy'},legal_terms:{hi:'नियम और शर्तें',en:'Terms & Conditions'},
+  legal_docpolicy:{hi:'दस्तावेज़ प्रबंधन नीति',en:'Document Processing Policy'},legal_deletion:{hi:'खाता हटाने का अनुरोध',en:'Account Deletion Request'},
+  legal_retention:{hi:'डेटा प्रतिधारण नीति',en:'Data Retention Policy'},legal_grievance:{hi:'शिकायत / संपर्क',en:'Grievance Contact'},
+  legal_back:{hi:'वापस',en:'Back'},legal_submit:{hi:'अनुरोध भेजें',en:'Submit request'},
+  legal_del_form_note:{hi:'लॉगिन करके भेजें — अनुरोध आपके खाते से जुड़ जाएगा।',en:'Submit after login — the request will be linked to your account.'},
+  updated_on:{hi:'अंतिम अद्यतन',en:'Last updated'},
+};
+
+let LANG = localStorage.getItem('portal_lang') || 'hi';
+const t = (k) => (I18N[k] ? I18N[k][LANG] : k);
+const L = (obj) => (obj ? (LANG === 'hi' ? (obj.hi ?? obj.en) : (obj.en ?? obj.hi)) : '');
+const labelCat  = (v) => L(JOB_CATEGORIES.find(c=>c.value===v)) || v;
+const labelDoc  = (v) => L(DOCUMENT_TYPES.find(d=>d.value===v)) || v;
+const labelEdu  = (v) => L(EDUCATION_LEVELS.find(e=>e.value===v)) || v;
+const eduRank   = (v) => (EDUCATION_LEVELS.find(e=>e.value===v)?.rank ?? 0);
+const labelRes  = (v) => L(RES_CATEGORIES.find(c=>c.value===v)) || v;
+const labelSt   = (v) => t('st_'+v);
+
+/* ================================================================
+   HELPERS
+   ================================================================ */
+const $  = (s,root) => (root||document).querySelector(s);
+const $$ = (s,root) => Array.from((root||document).querySelectorAll(s));
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const iso = (d=new Date()) => d.toISOString();
+const todayISO = () => iso().slice(0,10);
+const fmtDate = (s) => { if(!s) return '—'; const d = new Date(s); return isNaN(d) ? String(s) : d.toLocaleDateString(LANG==='hi'?'hi-IN':'en-IN', {day:'numeric',month:'short',year:'numeric'}); };
+const fmtDT = (s) => { if(!s) return '—'; const d = new Date(s); return isNaN(d) ? String(s) : d.toLocaleString(LANG==='hi'?'hi-IN':'en-IN', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}); };
+const daysTo = (s) => Math.ceil((new Date(s+'T23:59:59') - Date.now()) / 86400000);
+const ageFrom = (dob) => { if(!dob) return null; const d=new Date(dob); if(isNaN(d)) return null; const n=new Date(); let a=n.getFullYear()-d.getFullYear(); const m=n.getMonth()-d.getMonth(); if(m<0||(m===0&&n.getDate()<d.getDate())) a--; return a; };
+const money = (n) => '₹' + Number(n||0).toLocaleString(LANG==='hi'?'hi-IN':'en-IN');
+const randomId = () => (crypto.randomUUID ? crypto.randomUUID().replace(/-/g,'') : Date.now().toString(36)+Math.random().toString(36).slice(2));
+async function sha256Hex(buf){ const h = await crypto.subtle.digest('SHA-256', buf); return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+let toastTimer;
+function toast(msg, kind){ const el=$('#toast'); el.textContent=msg; el.className='show'+(kind?' '+kind:''); clearTimeout(toastTimer); toastTimer=setTimeout(()=>{el.className='';},3400); }
+function busy(btn,on,label){ if(!btn) return; if(on){ btn.dataset.txt=btn.innerHTML; btn.disabled=true; btn.innerHTML=`<span class="spin"></span>${label?esc(label):''}`; } else { btn.disabled=false; btn.innerHTML=btn.dataset.txt||btn.innerHTML; } }
+const svg = {
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  bag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>',
+  rupee:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 3h12M6 8h12M6 16c6 0 8-2.5 8-6.5M6 13s1.5 1.5 6 1.5S18 21 12 21"/></svg>',
+  cap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 10v10h14V10"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.3 5.5 21 7 14 2 9.3 9 8.5"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 01-8 8H4l2.5-2.5A8 8 0 1121 12z"/></svg>',
+  doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>',
+  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.9 2.9l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.2a1.7 1.7 0 00-1-1.5 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.9-2.9l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.2a1.7 1.7 0 001.5-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.9-2.9l.1.1a1.7 1.7 0 001.9.3h.1a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.2a1.7 1.7 0 001 1.5h.1a1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.9 2.9l-.1.1a1.7 1.7 0 00-.3 1.9v.1a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.2a1.7 1.7 0 00-1.5 1z"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/></svg>',
+  list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>',
+  dots:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>',
+  ext:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 010 6.8M18.5 14.7c2 .8 3 2.4 3 5.3"/></svg>',
+  wallet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h3"/><path d="M2 10h20"/></svg>',
+  shieldok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>',
+  dl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>',
+  menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>',
+};
+
+/* ================================================================
+   APP STATE + FIREBASE INIT
+   ================================================================ */
+const configMissing = !FIREBASE_CONFIG.apiKey || FIREBASE_CONFIG.apiKey.includes('PASTE_') ||
+                      !FIREBASE_CONFIG.projectId || FIREBASE_CONFIG.projectId.includes('PASTE_');
+let app, auth, fsdb, storage;
+const S = { user:null, isAdmin:false, emailVerified:false, profile:null, edu:[], docs:[], apps:[],
+            jobs:null, jobsAt:0, notifs:[], tx:[], view:'home', unread:0, booted:false };
+
+function initFirebase(){
+  app = initializeApp(FIREBASE_CONFIG);
+  auth = getAuth(app);
+  fsdb = getFirestore(app);
+  storage = getStorage(app);
+}
+
+/* ---------- data access ---------- */
+const colRef = (name) => collection(fsdb, name);
+async function fetchJobs(force){
+  if(S.jobs && !force && Date.now()-S.jobsAt < 5*60*1000) return S.jobs;
+  const snap = await getDocs(query(colRef('jobs'), where('status','==','PUBLISHED')));
+  S.jobs = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+  S.jobsAt = Date.now();
+  return S.jobs;
+}
+async function loadMine(){
+  if(!S.user) return;
+  const [p, edu, docs, apps, txs] = await Promise.all([
+    getDoc(doc(fsdb,'users',S.user.uid)),
+    getDocs(query(colRef('studentEducation'), where('userId','==',S.user.uid))),
+    getDocs(query(colRef('studentDocuments'), where('userId','==',S.user.uid))),
+    getDocs(query(colRef('applications'), where('userId','==',S.user.uid))),
+    getDocs(query(colRef('walletTransactions'), where('userId','==',S.user.uid))),
+  ]);
+  S.profile = p.exists() ? p.data() : null;
+  S.edu = edu.docs.map(d=>({id:d.id,...d.data()}));
+  S.docs = docs.docs.map(d=>({id:d.id,...d.data()}));
+  S.apps = apps.docs.map(d=>({id:d.id,...d.data()}));
+  S.tx = txs.docs.map(d=>({id:d.id,...d.data()}));
+  await loadNotifs();
+  let bal = 0;
+  try{ const w = await getDoc(doc(fsdb,'wallets',S.user.uid)); if(w.exists()) bal = Number(w.data().balance)||0; }catch(e){}
+  S.balance = bal;
+}
+async function loadNotifs(){
+  const snap = await getDocs(query(colRef('notifications'), where('userId','==',S.user.uid)));
+  S.notifs = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+  S.unread = S.notifs.filter(n=>!n.read).length;
+}
+async function audit(action, target, meta){
+  try{
+    await addDoc(colRef('auditLogs'), { actorId:S.user?.uid||null, actorEmail:S.user?.email||null, action, target:target||null, meta:meta||{}, at:iso() });
+  }catch(e){ /* audit is best-effort on client; server/functions write the authoritative trail */ }
+}
+
+/* ---------- profile completeness ---------- */
+function profileScore(){
+  const p = S.profile || {}; const done = [
+    p.fullName, p.mobile, p.dateOfBirth, p.state, p.district, p.resCategory,
+    (p.skills&&p.skills.length), p.experience, S.edu.length>0,
+    S.docs.some(d=>d.type==='RESUME') || S.docs.length>=3,
+  ].filter(Boolean).length;
+  return Math.round(done/10*100);
+}
+
+/* ================================================================
+   AUTH
+   ================================================================ */
+function isGmail(v){ return /^[a-z0-9](?:[a-z0-9._%+-]{2,})?@gmail\.com$/i.test(String(v||'').trim()); }
+function passwordProblems(p){ const errs=[]; if(!p||p.length<8) errs.push(t('e_pass')); if(p&&!/[a-zA-Z]/.test(p)) errs.push(t('e_pass')); if(p&&!/\d/.test(p)) errs.push(t('e_pass')); return [...new Set(errs)]; }
+
+async function doRegister(f){
+  const d = Object.fromEntries(new FormData(f).entries());
+  const problems = [];
+  if(!d.fullName || d.fullName.trim().length<2) problems.push(t('e_name'));
+  if(!isGmail(d.email)) problems.push(t('e_gmail'));
+  problems.push(...passwordProblems(d.password));
+  if(d.password!==d.confirmPassword) problems.push(t('e_pass_match'));
+  if(!/^[6-9]\d{9}$/.test((d.mobile||'').replace(/\D/g,''))) problems.push(t('e_mobile'));
+  const dob=new Date(d.dateOfBirth); if(isNaN(dob)||dob>new Date()) problems.push(t('e_dob'));
+  if(!d.consent) problems.push(t('e_terms'));
+  const ebox=$('#regerr');
+  if(problems.length){ ebox.innerHTML=problems.map(x=>`<div>${esc(x)}</div>`).join(''); return; }
+  ebox.innerHTML='';
+  const btn=f.querySelector('button[type=submit]'); busy(btn,true,t('register'));
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, d.email.trim(), d.password);
+    await updateProfile(cred.user,{ displayName:d.fullName.trim() });
+    await setDoc(doc(fsdb,'users',cred.user.uid),{
+      fullName:d.fullName.trim(), email:d.email.trim().toLowerCase(), mobile:d.mobile.replace(/\D/g,''),
+      dateOfBirth:d.dateOfBirth, role:'STUDENT', status:'ACTIVE', profileVerified:false,
+      createdAt:iso(), skills:[], preferredCategories:[], state:'', district:'', resCategory:'', experience:'',
+    });
+    await sendEmailVerification(cred.user);
+    await audit('AUTH_REGISTER', cred.user.uid, { email:d.email });
+    toast(t('verify_sent'),'ok');
+    signOut(auth).then(()=>{ location.hash='#/login'; });
+  }catch(err){
+    const m = String(err?.code||err);
+    ebox.textContent = m.includes('email-already-in-use') ? t('acct_exists')
+      : m.includes('weak-password') ? t('weak_or_used') : (t('weak_or_used')+' ('+esc(err?.message||'')+')');
+  }
+  busy(btn,false);
+}
+
+async function doLogin(f){
+  const d = Object.fromEntries(new FormData(f).entries());
+  const btn=f.querySelector('button[type=submit]'); busy(btn,true,t('login'));
+  try{
+    const cred = await signInWithEmailAndPassword(auth, d.email.trim(), d.password);
+    if(!cred.user.emailVerified){ toast(t('not_verified'),'bad'); $('#loginerr').textContent=t('not_verified'); await signOut(auth); }
+    else { await audit('AUTH_LOGIN', cred.user.uid, {}); }
+  }catch(err){ $('#loginerr').textContent=t('wrong_cred'); }
+  busy(btn,false);
+}
+async function doReset(f){
+  const d = Object.fromEntries(new FormData(f).entries());
+  if(!isGmail(d.email)) return toast(t('e_gmail'),'bad');
+  const btn=f.querySelector('button'); busy(btn,true,t('send'));
+  try{ await sendPasswordResetEmail(auth, d.email.trim()); toast(t('reset_ok'),'ok'); f.reset(); }catch(e){ toast(e?.message||'Error','bad'); }
+  busy(btn,false);
+}
+async function doLogout(){ await audit('AUTH_LOGOUT', S.user?.uid, {}); await signOut(auth); toast(t('logout_done')); location.hash='#/'; }
+
+/* ================================================================
+   ROUTER
+   ================================================================ */
+const routes = ['','home','login','register','legal','dashboard','profile','education','documents','jobs','recommended','assistant','applications','wallet','transactions','notifications','settings','admin'];
+let currentLegal = 'privacy';
+
+function go(v){ location.hash = '#/'+v; }
+function route(){
+  let v = (location.hash||'#/').replace(/^#\//,'').split('?')[0];
+  if(v.startsWith('legal')){ currentLegal = v.split('/')[1] || 'privacy'; v = 'legal'; }
+  if(!routes.includes(v)) v = 'home';
+  S.view = v || 'home';
+  render();
+  window.scrollTo({top:0});
+}
+
+function isStudentView(v){ return ['dashboard','profile','education','documents','jobs','recommended','assistant','applications','wallet','transactions','notifications','settings'].includes(v); }
+
+function render(){
+  $('#setup-screen').classList.add('hide'); $('#app').classList.remove('hide');
+  const v = S.view;
+  /* header buttons */
+  const authed = !!S.user;
+  $('#bellbtn').classList.toggle('hide', !authed || isStudentView(v)===false && v!=='home');
+  $('#logoutbtn').classList.toggle('hide', !authed);
+  $('#brandname').textContent = LANG==='hi' ? PORTAL_SETTINGS.siteNameHi : PORTAL_SETTINGS.siteName;
+  $('#langbtn').textContent = LANG==='hi' ? 'EN' : 'हिं';
+  $('#belldot').textContent = S.unread; $('#belldot').classList.toggle('hide', !S.unread);
+  $('#bellbtn').onclick = ()=>go('notifications');
+  $('#logoutbtn').onclick = doLogout;
+  $('#langbtn').onclick = ()=>{ LANG = LANG==='hi'?'en':'hi'; localStorage.setItem('portal_lang',LANG); route(); };
+
+  if(configMissing){ renderSetup(); return; }
+  if(v==='legal'){ renderLegal(currentLegal); return; }
+  if(!authed && isStudentView(v)){ go('login'); return; }
+  if(authed && (v==='login'||v==='register')){ go('dashboard'); return; }
+  if(v==='admin'){ if(S.isAdmin) renderAdmin(); else renderNoAdmin(); return; }
+  if(isStudentView(v)){ renderShell(v); return; }
+  if(v==='login') renderAuth('login');
+  else if(v==='register') renderAuth('register');
+  else renderLanding();
+}
+
+function renderSetup(){
+  $('#app').classList.add('hide'); $('#setup-screen').classList.remove('hide');
+  const el = $('#setup-screen');
+  el.innerHTML = `<div class="setup-card">
+    <div class="hd"><h1>${LANG==='hi'?'सेटअप आवश्यक है — अपना Firebase कॉन्फ़िग जोड़ें':'Setup required — add your Firebase config'}</h1></div>
+    <div class="bd">
+      <p class="mb16" style="color:var(--muted);font-size:14px">${LANG==='hi'?'यह वेबसाइट आपके अपने Firebase प्रोजेक्ट से चलती है। नीचे दिए चरण पूरे करें (एक बार):':'This website runs on your own Firebase project. Complete these steps once:'}</p>
+      <ol>
+        <li>${LANG==='hi'?'Firebase Console खोलें → <b>Project settings → General</b> → “Your apps” → Web app बनाएं।':'Open Firebase Console → <b>Project settings → General</b> → “Your apps” → create a Web app.'}</li>
+        <li>${LANG==='hi'?'config में दिए <code>apiKey</code>, <code>projectId</code> आदि मान कॉपी करें।':'Copy the <code>apiKey</code>, <code>projectId</code> etc. values from the config.'}</li>
+        <li>${LANG==='hi'?'<code>index.html</code> खोलें और ऊपर <code>FIREBASE_CONFIG</code> सेक्शन में वह मान पेस्ट करें, फिर फ़ाइल दोबारा अपलोड करें।':'Open <code>index.html</code> and paste those values into the <code>FIREBASE_CONFIG</code> section at the top, then re-upload the file.'}</li>
+        <li>${LANG==='hi'?'Firebase Console में: Authentication → Sign-in method → <b>Email/Password</b> सक्रिय करें; Authentication → Settings → Authorized domains में अपना वेबसाइट डोमेन (जैसे <code>yourname.github.io</code>) जोड़ें।':'In Firebase Console: Authentication → Sign-in method → enable <b>Email/Password</b>; Authentication → Settings → Authorized domains → add your website domain (e.g. <code>yourname.github.io</code>).'}</li>
+        <li>${LANG==='hi'?'Firestore Database और Storage सक्रिय करें और इस फ़ाइल के अंत (HTML कमेंट) में दिए सुरक्षा नियम पेस्ट करें।':'Enable Firestore Database and Storage, and paste the security rules found at the end of this file (HTML comments).'}</li>
+        <li>${LANG==='hi'?'पहला एडमिन बनाने के लिए README/कमेंट में दी <code>set-admin</code> स्क्रिप्ट एक बार चलाएं।':'Run the provided <code>set-admin</code> script once (see README/comments) to make the first admin.'}</li>
+      </ol>
+      <div class="warnbox">${LANG==='hi'?'सुरक्षा: API key फ्रंटएंड में पहले से ही सार्वजनिक होती है — सुरक्षा Firestore/Storage नियमों से लागू होती है। नियम बिना डिप्लॉय न करें।':'Security: the web API key is public by design — protection comes from your Firestore/Storage rules. Never deploy without the rules.'}</div>
+    </div></div>`;
+}
+
+/* ================================================================
+   SHELLS
+   ================================================================ */
+const NAVS = {
+  dashboard:'home', profile:'user', education:'cap', documents:'doc', jobs:'bag', recommended:'star',
+  assistant:'chat', applications:'list', wallet:'wallet', transactions:'rupee', notifications:'bell', settings:'gear',
+};
+function sideNav(){
+  const items = [
+    ['grp', t('grp_main')],
+    ['dashboard', t('nav_dashboard'), 'home'],
+    ['profile', t('nav_profile'), 'user'],
+    ['education', t('nav_education'), 'cap'],
+    ['documents', t('nav_documents'), 'doc'],
+    ['grp', t('grp_career')],
+    ['jobs', t('nav_jobs'), 'bag'],
+    ['recommended', t('nav_reco'), 'star'],
+    ['assistant', t('nav_assist'), 'chat'],
+    ['applications', t('nav_apps'), 'list'],
+    ['grp', t('grp_account')],
+    ['wallet', t('nav_wallet'), 'wallet'],
+    ['transactions', t('nav_tx'), 'rupee'],
+    ['notifications', t('nav_notif'), 'bell'],
+    ['settings', t('nav_settings'), 'gear'],
+  ];
+  if(S.isAdmin) items.push(['admin', t('nav_admin'), 'shield']);
+  return `<div class="usercard"><b>${esc(S.profile?.fullName || S.user?.displayName || S.user?.email)}</b><span>${esc(S.user?.email)}</span></div>
+  <nav class="snav">${items.map(i=> i[0]==='grp'
+    ? `<span class="grp">${i[1]}</span>`
+    : `<a href="#/${i[0]}" data-nav class="${S.view===i[0]?'on':''}">${svg[i[2]]}<span>${i[1]}</span></a>`).join('')}</nav>`;
+}
+function bottomNav(){
+  const items = [['dashboard',t('nav_home'),'home'],['jobs',t('nav_jobs'),'bag'],['recommended',t('nav_reco'),'star'],['wallet',t('nav_wallet'),'wallet'],['more',t('nav_settings'),'dots']];
+  return items.map(i=>`<a href="${i[0]==='more'?'javascript:void(0)':'#/'+i[0]}" data-nav ${i[0]==='more'?'id="morebtn"':''} class="${(i[0]===S.view||(['profile','education','documents','assistant','applications','transactions','notifications','settings'].includes(S.view)&&i[0]==='more'))?'on':''}">${svg[i[2]]}<span>${i[1]}</span></a>`).join('');
+}
+function moreSheet(){
+  const items = [['profile',t('nav_profile'),'user'],['education',t('nav_education'),'cap'],['documents',t('nav_documents'),'doc'],['assistant',t('nav_assist'),'chat'],['applications',t('nav_apps'),'list'],['transactions',t('nav_tx'),'rupee'],['notifications',t('nav_notif'),'bell'],['settings',t('nav_settings'),'gear'],['legal/privacy',t('legal_privacy'),'shield'],['legal/terms',t('legal_terms'),'shield']];
+  if(S.isAdmin) items.unshift(['admin',t('nav_admin'),'shield']);
+  $('#morelist').innerHTML = `<div class="mlist">${items.map(i=>`<a href="#/${i[0]}" data-nav>${svg[i[2]]}<span>${i[1]}</span></a>`).join('')}</div>`;
+}
+function renderShell(v){
+  const view = { dashboard:vDashboard, profile:vProfile, education:vEducation, documents:vDocuments,
+                 jobs:vJobs, recommended:vRecommended, assistant:vAssistant, applications:vApplications,
+                 wallet:vWallet, transactions:vTransactions, notifications:vNotifications, settings:vSettings }[v];
+  $('#view').innerHTML = `<div class="shell"><aside class="side">${sideNav()}</aside><main class="content" id="page"></main></div>`;
+  $('#bottomnav').classList.remove('hide'); $('#bottomnav').innerHTML = bottomNav();
+  $('#morebtn') && ($('#morebtn').onclick = ()=>{ moreSheet(); $('#moresheet').classList.add('open'); });
+  $('#moresheet').onclick = (e)=>{ if(e.target.id==='moresheet') $('#moresheet').classList.remove('open'); };
+  view($('#page'));
+}
+
+/* ================================================================
+   LANDING
+   ================================================================ */
+async function renderLanding(){
+  $('#bottomnav').classList.add('hide');
+  const v = $('#view');
+  v.innerHTML = `<div class="hero"><div class="wrap">
+      <span class="eyebrow">${svg.check} ${t('hero_badge')}</span>
+      <h1>${t('hero_title')}</h1>
+      <p class="sub">${t('hero_sub')}</p>
+      <div class="cta">
+        ${S.user
+          ? `<a class="btn white" href="#/dashboard" data-nav>${t('nav_dashboard')}</a><a class="btn line" href="#/jobs" data-nav>${t('cta_browse')}</a>`
+          : `<a class="btn white" href="#/register" data-nav>${t('cta_register')}</a><a class="btn line" href="#/login" data-nav>${t('cta_login')}</a>`}
+      </div>
+      <div class="stats">
+        <div class="s"><b id="st-jobs">–</b><span>${t('stat_jobs')}</span></div>
+        <div class="s"><b>11</b><span>${t('stat_cat')}</span></div>
+        <div class="s"><b>₹0</b><span>${t('stat_free')}</span></div>
+      </div>
+    </div></div>
+    <section class="sect"><div class="wrap">
+      <h2>${t('sec_categories')}</h2><p class="lead">${t('sec_categories_sub')}</p>
+      <div class="catgrid">${JOB_CATEGORIES.map(c=>`<button class="catcard" data-cat="${c.value}"><b>${L(c)}</b><span>${c.value}</span></button>`).join('')}</div>
+    </div></section>
+    <section class="sect"><div class="wrap">
+      <h2>${t('sec_features')}</h2>
+      <div class="featrow mt16">
+        ${[['f_match','f_match_d','star',''],['f_docs','f_docs_d','lock','g'],['f_assist','f_assist_d','chat',''],['f_alert','f_alert_d','bell','g'],['f_wallet','f_wallet_d','wallet',''],['f_alerts_daily','f_alerts_daily_d','cal','g']]
+          .map(f=>`<div class="feat"><span class="ic ${f[3]}">${svg[f[2]]}</span><div><b>${t(f[0])}</b><p>${t(f[1])}</p></div></div>`).join('')}
+      </div>
+    </div></section>
+    <section class="sect"><div class="wrap">
+      <h2>${t('sec_how')}</h2>
+      <div class="steps mt16">
+        ${[['step1_t','step1_d'],['step2_t','step2_d'],['step3_t','step3_d'],['step4_t','step4_d']].map(s=>`<div class="step"><b>${t(s[0])}</b>${t(s[1])}</div>`).join('')}
+      </div>
+    </div></section>
+    <div class="trust"><div class="wrap">
+      <span class="t">${svg.shieldok} ${t('f_docs')}</span><span class="t">${svg.lock} ${t('t_privacy')}</span>
+      <span class="t">${svg.check} ${t('f_match')}</span><span class="t">${svg.rupee} ${t('f_wallet')}</span>
+    </div></div>
+    <footer class="site"><div class="wrap"><div class="cols">
+      <div style="max-width:320px"><h4>${LANG==='hi'?PORTAL_SETTINGS.siteNameHi:PORTAL_SETTINGS.siteName}</h4>
+        <ul><li>${esc(PORTAL_SETTINGS.tagline)}</li></ul></div>
+      <div><h4>${LANG==='hi'?'कानूनी':'Legal'}</h4><ul>
+        ${[['privacy',t('legal_privacy')],['terms',t('legal_terms')],['docpolicy',t('legal_docpolicy')],['deletion',t('legal_deletion')],['retention',t('legal_retention')],['grievance',t('legal_grievance')]].map(l=>`<li><a href="#/legal/${l[0]}" data-nav>${l[1]}</a></li>`).join('')}
+      </ul></div>
+      <div><h4>${LANG==='hi'?'संपर्क':'Contact'}</h4><ul><li>${esc(PORTAL_SETTINGS.grievanceEmail)}</li><li>${esc(PORTAL_SETTINGS.grievancePhone)}</li></ul></div>
+    </div>
+    <div class="fine">© ${new Date().getFullYear()} ${esc(PORTAL_SETTINGS.ownerName)}. ${LANG==='hi'?'सभी नौकरी विवरण आधिकारिक अधिसूचना से सत्यापित करें।':'Always verify job details from the official notification.'}</div>
+    </div></footer>`;
+  try{ const jobs = await fetchJobs(); const el=$('#st-jobs'); if(el) el.textContent = jobs.length; }catch(e){}
+  $$('.catcard',v).forEach(b=> b.onclick = ()=>{ sessionStorage.setItem('portal_cat', b.dataset.cat); go(S.user?'jobs':'register'); });
+}
+
+/* ================================================================
+   AUTH VIEWS
+   ================================================================ */
+function renderAuth(mode){
+  $('#bottomnav').classList.add('hide');
+  $('#view').innerHTML = `<div class="authwrap"><div class="authcard">
+    <div class="authtabs">
+      <button type="button" class="${mode==='login'?'on':''}" data-go="login">${t('login')}</button>
+      <button type="button" class="${mode==='register'?'on':''}" data-go="register">${t('register')}</button>
+    </div>
+    <div id="authbody"></div>
+  </div></div>`;
+  $$('.authtabs button').forEach(b=> b.onclick = ()=>go(b.dataset.go));
+  const body = $('#authbody');
+  if(mode==='login'){
+    body.innerHTML = `<h2>${t('login')}</h2><p class="muted mb16" style="font-size:13.5px">${LANG==='hi'?'अपने Gmail और पासवर्ड से लॉगिन करें।':'Login with your Gmail and password.'}</p>
+      <form id="flogin">
+        <label class="f"><span>${t('email_gmail')} <span class="req">*</span></span><input class="input" name="email" type="email" autocomplete="email" required placeholder="name@gmail.com"></label>
+        <label class="f"><span>${t('password')} <span class="req">*</span></span><input class="input" name="password" type="password" autocomplete="current-password" required></label>
+        <div class="err" id="loginerr"></div>
+        <button class="btn primary block" type="submit">${t('login')}</button>
+      </form>
+      <p class="mt16 center"><a href="javascript:void(0)" id="resetlink">${t('forgot_pass')}</a></p>
+      <form id="freset" class="hide mt16 card" style="box-shadow:none">
+        <label class="f"><span>${t('email_gmail')}</span><input class="input" name="email" type="email" required placeholder="name@gmail.com"></label>
+        <button class="btn ghost block" type="submit">${t('send')}</button>
+      </form>`;
+    $('#flogin').onsubmit = (e)=>{ e.preventDefault(); doLogin(e.target); };
+    $('#resetlink').onclick = ()=>$('#freset').classList.toggle('hide');
+    $('#freset').onsubmit = (e)=>{ e.preventDefault(); doReset(e.target); };
+  } else {
+    body.innerHTML = `<h2>${t('register')}</h2><p class="muted mb16" style="font-size:13.5px">${LANG==='hi'?'खाता बनाना पूरी तरह मुफ़्त है। केवल Gmail पता मान्य है।':'Creating an account is completely free. Only Gmail addresses are accepted.'}</p>
+      <form id="freg">
+        <label class="f"><span>${t('full_name')} <span class="req">*</span></span><input class="input" name="fullName" required minlength="2" maxlength="80" placeholder="${LANG==='hi'?'पूरा नाम':'Full name'}"></label>
+        <label class="f"><span>${t('email_gmail')} <span class="req">*</span></span><input class="input" name="email" type="email" required placeholder="name@gmail.com"></label>
+        <div class="grid2">
+          <label class="f"><span>${t('password')} <span class="req">*</span></span><input class="input" name="password" type="password" required minlength="8"></label>
+          <label class="f"><span>${t('confirm_password')} <span class="req">*</span></span><input class="input" name="confirmPassword" type="password" required minlength="8"></label>
+        </div>
+        <div class="hint mb16">${LANG==='hi'?'कम से कम 8 अक्षर, अक्षर + संख्या।':'At least 8 characters with letters and numbers.'}</div>
+        <div class="grid2">
+          <label class="f"><span>${t('mobile')} <span class="req">*</span></span><input class="input" name="mobile" required inputmode="numeric" maxlength="10" placeholder="98XXXXXXXX"></label>
+          <label class="f"><span>${t('dob')} <span class="req">*</span></span><input class="input" name="dateOfBirth" type="date" required max="${todayISO()}"></label>
+        </div>
+        <label class="checkline mb16"><input type="checkbox" name="consent" required><span>${t('agree_terms')} <a href="#/legal/terms" data-nav>${t('legal_terms')}</a> · <a href="#/legal/privacy" data-nav>${t('legal_privacy')}</a></span></label>
+        <div class="err" id="regerr"></div>
+        <button class="btn primary block" type="submit">${t('register')}</button>
+      </form>`;
+    $('#freg').onsubmit = (e)=>{ e.preventDefault(); doRegister(e.target); };
+  }
+}
+
+/* ================================================================
+   MATCHING ENGINE (transparent, client-side)
+   ================================================================ */
+function jobEligibility(job){
+  const p = S.profile||{}; const reasons=[]; let ok=true;
+  const top = S.edu.slice().sort((a,b)=>eduRank(b.level)-eduRank(a.level))[0];
+  const age = ageFrom(p.dateOfBirth);
+  const dEnd = job.applicationDeadline ? daysTo(job.applicationDeadline) : null;
+  if(dEnd!==null && dEnd<0){ ok=false; reasons.push({ok:false, en:'Application closed on '+job.applicationDeadline, hi:'आवेदन '+job.applicationDeadline+' को बंद हो गया'}); }
+  if(job.qualificationLevel && job.qualificationLevel!=='OTHER'){
+    const need = eduRank(job.qualificationLevel);
+    if(top && eduRank(top.level)>=need) reasons.push({ok:true, en:'Education: '+labelEdu(top.level)+' meets '+labelEdu(job.qualificationLevel), hi:'शिक्षा: '+labelEdu(top.level)+' — '+labelEdu(job.qualificationLevel)+' पूरी'});
+    else { ok=false; reasons.push({ok:false, en:'Needs '+labelEdu(job.qualificationLevel)+' or higher', hi:labelEdu(job.qualificationLevel)+' या उससे अधिक चाहिए'}); }
+  } else reasons.push({ok:true, en:'Open education requirement', hi:'शिक्षा की कोई खास शर्त नहीं'});
+  if(age===null){ ok=false; reasons.push({ok:false, en:'Add date of birth in profile', hi:'प्रोफ़ाइल में जन्म तिथि जोड़ें'}); }
+  else if(job.minAge && age<job.minAge){ ok=false; reasons.push({ok:false, en:'Minimum age '+job.minAge+' (you: '+age+')', hi:'न्यूनतम उम्र '+job.minAge+' (आपकी: '+age+')'}); }
+  else if(job.maxAge && age>job.maxAge){ ok=false; reasons.push({ok:false, en:'Maximum age '+job.maxAge+' (you: '+age+')', hi:'अधिकतम उम्र '+job.maxAge+' (आपकी: '+age+')'}); }
+  else if(age!==null) reasons.push({ok:true, en:'Age '+age+' within '+(job.minAge||18)+'–'+(job.maxAge||'—'), hi:'उम्र '+age+' सीमा '+(job.minAge||18)+'–'+(job.maxAge||'—')+' में'});
+  return { ok, reasons };
+}
+function matchScore(job){
+  const p = S.profile||{}; const top = S.edu.slice().sort((a,b)=>eduRank(b.level)-eduRank(a.level))[0];
+  const age = ageFrom(p.dateOfBirth);
+  const el = jobEligibility(job);
+  let s = 0;
+  if(top && job.qualificationLevel && eduRank(top.level)>=eduRank(job.qualificationLevel)) s+=30;
+  else if(top) s+=10;
+  if(age!==null && (!job.minAge||age>=job.minAge) && (!job.maxAge||age<=job.maxAge)) s+=25;
+  const skills = (p.skills||[]).map(x=>x.toLowerCase());
+  const jsk = String(job.skillsText||'').toLowerCase().split(/[,;]/).map(x=>x.trim()).filter(Boolean);
+  const hits = jsk.filter(k=>skills.some(x=>x.includes(k)||k.includes(x))).length;
+  s += Math.min(15, jsk.length? Math.round(hits/jsk.length*15) : 8);
+  if(p.state && job.state && p.state===job.state) s+=10; else if(job.state===''||!job.state) s+=6;
+  if((p.preferredCategories||[]).includes(job.category)) s+=10;
+  s += Math.round(profileScore()/10);
+  if(!el.ok) s = Math.min(s, 45);
+  return Math.max(5, Math.min(100, s));
+}
+function jobClosed(job){ return job.applicationDeadline ? daysTo(job.applicationDeadline) < 0 : false; }
+
+/* ================================================================
+   JOB CARD
+   ================================================================ */
+function jobCard(job, opts={}){
+  const el = jobEligibility(job);
+  const dl = job.applicationDeadline ? daysTo(job.applicationDeadline) : null;
+  const closed = jobClosed(job);
+  const canApply = S.user && S.emailVerified && !closed;
+  const score = opts.score!==undefined ? opts.score : matchScore(job);
+  return `<div class="job" data-job="${job.id}">
+    <div class="head"><div><h4>${esc(job.title)}</h4><div class="org">${esc(job.organization)}${job.department?' · '+esc(job.department):''}</div></div>
+      <span class="badge ${closed?'b-grey':'b-blue'}">${labelCat(job.category)}</span></div>
+    <div class="facts">
+      ${job.salaryText?`<span class="f">${svg.rupee}${esc(job.salaryText)}</span>`:''}
+      ${job.vacancies?`<span class="f">${svg.users}${t('vac')}: ${esc(job.vacancies)}</span>`:''}
+      ${job.minAge||job.maxAge?`<span class="f">${svg.user}${t('age')}: ${job.minAge||18}–${job.maxAge||'—'}</span>`:''}
+      ${job.location?`<span class="f">${svg.pin}${esc(job.location)}</span>`:''}
+    </div>
+    <div class="dates">
+      ${job.applicationStart?`<span class="d">${t('apply_start')}: <b>${fmtDate(job.applicationStart)}</b></span>`:''}
+      ${job.applicationDeadline?`<span class="d ${closed?'past':(dl<=7?'warn':'')}">${t('last_date')}: <b>${fmtDate(job.applicationDeadline)}</b>${dl>=0?` · ${dl} ${t('days_left')}`:` · ${t('closed')}`}</span>`:''}
+      ${job.feeGeneral!==undefined&&job.feeGeneral!==null?`<span class="d">${t('fee')}: <b>${Number(job.feeGeneral)?money(job.feeGeneral):'₹0'}</b></span>`:''}
+    </div>
+    ${opts.reasons?`<ul class="reasons">${el.reasons.map(r=>`<li class="${r.ok?'ok':'no'}">${r.ok?svg.check:svg.x}<span>${L(r)}</span></li>`).join('')}</ul>`:''}
+    ${opts.score!==undefined?`<div><div class="spread mb8"><b class="faint">${t('match_score')}</b><b>${score}%</b></div><div class="matchbar"><i style="width:${score}%"></i></div></div>`:''}
+    <div class="src">${job.verified?`<span class="badge b-green">${t('verified_badge')}</span> `:''}${t('source')}: ${esc(job.sourceName||'—')}${job.sourceUrl?` · <a href="${esc(job.sourceUrl)}" target="_blank" rel="noopener noreferrer">${t('official_link')}</a>`:''}</div>
+    <div class="actions">
+      ${job.applyUrl?`<a class="btn ghost sm" href="${esc(job.applyUrl)}" target="_blank" rel="noopener noreferrer">${svg.ext} ${t('official_link')}</a>`:''}
+      ${canApply?`<button class="btn primary sm" data-apply="${job.id}">${t('apply')}</button>`:''}
+      ${S.user&&!S.emailVerified?`<span class="faint">${LANG==='hi'?'ईमेल सत्यापित करें':'Verify email to apply'}</span>`:''}
+    </div></div>`;
+}
+async function applyToJob(jobId){
+  const job = (S.jobs||[]).find(j=>j.id===jobId); if(!job) return;
+  if(!S.emailVerified) return toast(t('verify_banner'),'bad');
+  const el = jobEligibility(job);
+  if(!el.ok && !confirm(LANG==='hi'?'आप इस पद के लिए पूरी तरह योग्य नहीं लगते। फिर भी ड्राफ्ट बनाएं?':'You may not be fully eligible. Still create a draft?')) return;
+  try{
+    await addDoc(colRef('applications'), {
+      userId:S.user.uid, jobId:job.id, jobTitle:job.title, organization:job.organization, category:job.category||'',
+      status:'DRAFT', referenceNumber:'', applyUrl:job.applyUrl||'', applicationDeadline:job.applicationDeadline||'',
+      formData: { fullName:S.profile?.fullName||S.user.displayName||'', email:S.user.email, mobile:S.profile?.mobile||'',
+                  dateOfBirth:S.profile?.dateOfBirth||'', education:S.edu.map(e=>({level:e.level,board:e.board,year:e.year,percentage:e.percentage})),
+                  resCategory:S.profile?.resCategory||'', state:S.profile?.state||'' },
+      history:[{status:'DRAFT', at:iso(), by:'student'}],
+      createdAt:iso(), updatedAt:iso(),
+    });
+    await audit('APPLICATION_DRAFT_CREATED', jobId, { title:job.title });
+    try{ await loadMine(); }catch(e){}
+    toast(t('apply_draft_ok'),'ok'); go('applications');
+  }catch(e){ toast(e?.message||'Error','bad'); }
+}
+
+/* ================================================================
+   STUDENT VIEWS
+   ================================================================ */
+async function ensureJobs(){ try{ await fetchJobs(); }catch(e){ toast(e?.message||'Error','bad'); } return S.jobs||[]; }
+
+/* ---------- dashboard ---------- */
+async function vDashboard(root){
+  root.innerHTML = `<div class="pgtitle"><div><h2>${t('welc')}, ${esc(S.profile?.fullName||S.user?.displayName||S.user?.email)}</h2><p>${esc(S.user.email)}</p></div>
+    <button class="btn ghost sm" id="refbtn">${svg.clock} ${t('refresh')}</button></div>
+    ${!S.emailVerified?`<div class="card mb16" style="border-color:var(--amber-line);background:var(--amber-soft)"><div class="spread"><span style="font-size:13.5px;color:var(--amber)">${t('verify_banner')}</span><button class="btn sm ghost" id="resendv">${t('resend_verify')}</button></div></div>`:''}
+    <div class="kpis mb16">
+      <div class="kpi"><b id="k-pc">${profileScore()}%</b><span>${t('profile_complete')}</span></div>
+      <div class="kpi"><b>${S.docs.length}</b><span>${t('d_docs')}</span></div>
+      <div class="kpi"><b>${S.apps.filter(a=>a.status!=='WITHDRAWN').length}</b><span>${t('d_apps')}</span></div>
+      <div class="kpi"><b>${money(S.balance||0)}</b><span>${t('d_balance')}</span></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>${t('quick_links')}</h3>
+        <div class="mlist mt8">
+          <a href="#/profile" data-nav>${svg.user}<span>${t('nav_profile')}</span></a>
+          <a href="#/education" data-nav>${svg.cap}<span>${t('nav_education')}</span></a>
+          <a href="#/documents" data-nav>${svg.doc}<span>${t('nav_documents')}</span></a>
+          <a href="#/recommended" data-nav>${svg.star}<span>${t('nav_reco')}</span></a>
+          <a href="#/assistant" data-nav>${svg.chat}<span>${t('nav_assist')}</span></a>
+          <a href="#/wallet" data-nav>${svg.wallet}<span>${t('nav_wallet')}</span></a>
+        </div></div>
+      <div class="card"><h3>${t('recent_notifs')}</h3><div id="dash-notifs" class="mt8">${t('loading')}</div></div>
+    </div>
+    <h3 class="mt24 mb16">${t('d_matches')}</h3><div id="dash-jobs">${t('loading')}</div>`;
+  $('#refbtn').onclick = async ()=>{ await loadMine(); route(); };
+  const rv=$('#resendv'); rv&&(rv.onclick=async()=>{ busy(rv,true); try{ await sendEmailVerification(S.user); toast(t('resend_ok'),'ok'); }catch(e){ toast(e?.message,'bad'); } busy(rv,false); });
+  const dn=$('#dash-notifs');
+  dn.innerHTML = S.notifs.length? S.notifs.slice(0,4).map(n=>`<div class="kv"><span>${esc(n.title)}</span><b class="faint">${fmtDT(n.createdAt)}</b></div>`).join('') : `<p class="faint">${t('no_notifs')}</p>`;
+  await ensureJobs();
+  const dj=$('#dash-jobs');
+  if(!S.emailVerified){ dj.innerHTML=`<div class="empty">${svg.lock}<p>${LANG==='hi'?'सुझाव देखने के लिए ईमेल सत्यापित करें।':'Verify your email to see suggestions.'}</p></div>`; return; }
+  const jobs = (S.jobs||[]).filter(j=>!jobClosed(j)).map(j=>({j,s:matchScore(j)})).sort((a,b)=>b.s-a.s).slice(0,3);
+  dj.innerHTML = jobs.length? jobs.map(x=>jobCard(x.j,{score:x.s})).join('') : `<div class="empty">${svg.bag}<p>${t('no_jobs')}</p></div>`;
+  bindApply(dj);
+}
+function bindApply(root){ $$('[data-apply]',root).forEach(b=> b.onclick=()=>applyToJob(b.dataset.apply)); }
+
+/* ---------- profile ---------- */
+function vProfile(root){
+  const p = S.profile||{};
+  root.innerHTML = `<div class="pgtitle"><div><h2>${t('nav_profile')}</h2><p>${t('profile_complete')}: <b>${profileScore()}%</b> · ${t('f_docs_d')}</p></div></div>
+  ${!S.emailVerified?`<div class="card mb16" style="border-color:var(--amber-line);background:var(--amber-soft)"><span style="font-size:13.5px;color:var(--amber)">${t('verify_banner')}</span></div>`:''}
+  <div class="card">
+    <h3>${t('profile_info')}</h3>
+    <div class="grid2 mt8">
+      <label class="f"><span>${t('full_name')}</span><input class="input" id="p-name" value="${esc(p.fullName||'')}" maxlength="80"></label>
+      <label class="f"><span>${t('mobile')}</span><input class="input" id="p-mobile" value="${esc(p.mobile||'')}" inputmode="numeric" maxlength="10"></label>
+      <label class="f"><span>${t('dob')}</span><input class="input" id="p-dob" type="date" max="${todayISO()}" value="${esc(p.dateOfBirth||'')}"></label>
+      <label class="f"><span>${t('category')}</span><select class="input" id="p-res">${['',...RES_CATEGORIES.map(c=>c.value)].map(v=>`<option value="${v}" ${p.resCategory===v?'selected':''}>${v?labelRes(v):t('select')}</option>`).join('')}</select></label>
+      <label class="f"><span>${t('state')}</span><select class="input" id="p-state">${['',...INDIAN_STATES].map(v=>`<option ${p.state===v?'selected':''}>${v||t('select')}</option>`).join('')}</select></label>
+      <label class="f"><span>${t('district')}</span><input class="input" id="p-district" value="${esc(p.district||'')}" maxlength="60"></label>
+    </div>
+    <label class="f"><span>${t('experience')}</span><textarea class="input" id="p-exp" maxlength="600">${esc(p.experience||'')}</textarea></label>
+    <label class="f"><span>${t('skills')}</span><input class="input" id="p-skillin" placeholder="${t('skills_hint')}"></label>
+    <div class="row wrapf mb16" id="p-skills">${(p.skills||[]).map(s=>`<span class="chip">${esc(s)}<button data-rm="${esc(s)}">×</button></span>`).join('')||'<span class="faint">—</span>'}</div>
+    <h3 class="mt16">${t('pref_cats')}</h3>
+    <div class="row wrapf mt8">${JOB_CATEGORIES.map(c=>`<label class="checkline" style="background:var(--grey);border-radius:10px;padding:8px 12px"><input type="checkbox" data-pc="${c.value}" ${(p.preferredCategories||[]).includes(c.value)?'checked':''}><span>${L(c)}</span></label>`).join('')}</div>
+    <button class="btn primary mt24" id="p-save">${t('save')}</button>
+  </div>`;
+  let skills = [...(p.skills||[])];
+  const renderSkills=()=>{ $('#p-skills').innerHTML = skills.map(s=>`<span class="chip">${esc(s)}<button data-rm="${esc(s)}">×</button></span>`).join('')||'<span class="faint">—</span>'; $$('#p-skills [data-rm]').forEach(b=>b.onclick=()=>{ skills=skills.filter(x=>x!==b.dataset.rm); renderSkills(); }); };
+  $('#p-skillin').onkeydown = (e)=>{ if(e.key==='Enter'){ e.preventDefault(); const v=e.target.value.trim(); if(v&&!skills.includes(v)&&skills.length<15){ skills.push(v); renderSkills(); } e.target.value=''; } };
+  renderSkills();
+  $('#p-save').onclick = async (e)=>{
+    const btn=e.target; busy(btn,true,t('save'));
+    const mobile=$('#p-mobile').value.replace(/\D/g,'');
+    if($('#p-name').value.trim().length<2){ busy(btn,false); return toast(t('e_name'),'bad'); }
+    if(mobile && !/^[6-9]\d{9}$/.test(mobile)){ busy(btn,false); return toast(t('e_mobile'),'bad'); }
+    try{
+      await updateDoc(doc(fsdb,'users',S.user.uid), {
+        fullName:$('#p-name').value.trim(), mobile, dateOfBirth:$('#p-dob').value, resCategory:$('#p-res').value,
+        state:$('#p-state').value, district:$('#p-district').value.trim(), experience:$('#p-exp').value.trim(), skills,
+        preferredCategories: $$('[data-pc]').filter(c=>c.checked).map(c=>c.dataset.pc), updatedAt:iso(),
+      });
+      await audit('PROFILE_UPDATED', S.user.uid, {}); await loadMine(); toast(t('saved'),'ok'); route();
+    }catch(err){ toast(err?.message||'Error','bad'); }
+    busy(btn,false);
+  };
+}
+
+/* ---------- education ---------- */
+function vEducation(root){
+  const rows = S.edu.slice().sort((a,b)=>eduRank(b.level)-eduRank(a.level));
+  root.innerHTML = `<div class="pgtitle"><div><h2>${t('nav_education')}</h2><p>${t('edu_note')}</p></div>
+    <button class="btn primary sm" id="edu-add">${svg.check} ${t('add_education')}</button></div>
+    <div id="edu-form" class="card hide mb16"><h3>${t('add_education')}</h3>
+      <div class="grid2 mt8">
+        <label class="f"><span>${t('edu_level')} <span class="req">*</span></span><select class="input" id="e-level">${EDUCATION_LEVELS.map(l=>`<option value="${l.value}">${L(l)}</option>`).join('')}</select></label>
+        <label class="f"><span>${t('board')}</span><input class="input" id="e-board" maxlength="120" placeholder="CBSE / State Board / University"></label>
+        <label class="f"><span>${t('year')}</span><input class="input" id="e-year" type="number" min="1980" max="2030" placeholder="2024"></label>
+        <label class="f"><span>${t('pct')}</span><input class="input" id="e-pct" type="number" step="0.01" min="0" max="100" placeholder="75.50"></label>
+        <label class="f"><span>${t('roll')}</span><input class="input" id="e-roll" maxlength="40"></label>
+      </div>
+      <div class="row"><button class="btn primary" id="e-save">${t('save')}</button><button class="btn ghost" id="e-cancel">${t('cancel')}</button></div>
+    </div>
+    ${rows.length? `<div class="tblwrap"><table class="tbl"><thead><tr><th>${t('edu_level')}</th><th>${t('board')}</th><th>${t('year')}</th><th>${t('pct')}</th><th>${t('roll')}</th><th></th></tr></thead>
+      <tbody>${rows.map(r=>`<tr><td><b>${labelEdu(r.level)}</b></td><td>${esc(r.board||'—')}</td><td>${esc(r.year||'—')}</td><td>${esc(r.percentage||'—')}</td><td>${esc(r.roll||'—')}</td>
+      <td><button class="btn sm ghost" data-edit="${r.id}">${t('edit')}</button></td></tr>`).join('')}</tbody></table></div>`
+      : `<div class="empty">${svg.cap}<p>${LANG==='hi'?'अभी कोई शिक्षा प्रविष्टि नहीं। मैचिंग के लिए कम से कम एक जोड़ें।':'No education entries yet. Add at least one for job matching.'}</p></div>`}`;
+  const openForm=(r)=>{ const f=$('#edu-form'); f.classList.remove('hide'); f.scrollIntoView({behavior:'smooth'});
+    $('#e-level').value=r?.level||'TENTH'; $('#e-board').value=r?.board||''; $('#e-year').value=r?.year||''; $('#e-pct').value=r?.percentage||''; $('#e-roll').value=r?.roll||'';
+    $('#e-save').dataset.editing = r?.id||''; };
+  $('#edu-add').onclick = ()=>openForm(null);
+  $('#e-cancel').onclick = ()=>$('#edu-form').classList.add('hide');
+  $$('[data-edit]').forEach(b=> b.onclick = ()=>openForm(S.edu.find(x=>x.id===b.dataset.edit)));
+  $('#e-save').onclick = async (e)=>{
+    const editing = e.target.dataset.editing;
+    const data = { userId:S.user.uid, level:$('#e-level').value, board:$('#e-board').value.trim(),
+      year:$('#e-year').value? Number($('#e-year').value):null, percentage:$('#e-pct').value? Number($('#e-pct').value):null, roll:$('#e-roll').value.trim(), updatedAt:iso() };
+    busy(e.target,true,t('save'));
+    try{
+      if(editing) await updateDoc(doc(fsdb,'studentEducation',editing), data);
+      else { data.createdAt=iso(); await addDoc(colRef('studentEducation'), data); }
+      await audit(editing?'EDUCATION_UPDATED':'EDUCATION_ADDED', editing||data.level, {});
+      await loadMine(); toast(t('saved'),'ok'); route();
+    }catch(err){ toast(err?.message||'Error','bad'); }
+    busy(e.target,false);
+  };
+}
+
+/* ---------- documents ---------- */
+function vDocuments(root){
+  const byType = Object.fromEntries(S.docs.map(d=>[d.type,d]));
+  root.innerHTML = `<div class="pgtitle"><div><h2>${t('nav_documents')}</h2><p>${t('docs_note')}</p></div></div>
+    <div class="card pad0 mb16"><div class="tblwrap" style="border:0"><table class="tbl">
+      <thead><tr><th>${t('doc_type')}</th><th>${t('status')}</th><th style="min-width:220px">${t('choose_file')}</th><th></th></tr></thead>
+      <tbody>${DOCUMENT_TYPES.map(dt=>{ const d=byType[dt.value];
+        const st = !d? `<span class="badge b-grey">—</span>` : d.status==='VERIFIED'? `<span class="badge b-green">${t('status_verified')}</span>` : d.status==='REJECTED'? `<span class="badge b-red">${t('status_rejected')}</span>` : `<span class="badge b-amber">${t('status_pending')}</span>`;
+        return `<tr><td><b>${L(dt)}</b></td><td>${st}</td>
+          <td><input type="file" class="input" style="padding:7px" accept=".pdf,.jpg,.jpeg,.png" data-file="${dt.value}" ${!S.emailVerified?'disabled':''}></td>
+          <td class="row">${d?`<a class="btn sm ghost" data-dl="${d.id}" target="_blank" rel="noopener noreferrer">${svg.view} ${t('view')}</a><button class="btn sm danger" data-del="${d.id}">${svg.trash}</button><span class="faint">${(d.sizeBytes/1024/1024).toFixed(2)} MB</span>`:'<span class="faint">—</span>'}</td></tr>`; }).join('')}
+      </tbody></table></div></div>
+    <p class="faint">${LANG==='hi'?'अपलोड के बाद दस्तावेज़ “पेंडिंग” रहता है; एडमिन सत्यापित करता है। हर एक्सेस लॉग होता है।':'After upload a document stays “Pending”; an admin verifies it. Every access is logged.'}</p>`;
+  $$('[data-file]').forEach(inp=> inp.onchange = ()=>uploadDoc(inp, inp.dataset.file));
+  $$('[data-dl]').forEach(a=> a.onclick = async (e)=>{ e.preventDefault(); try{ const url=await getDownloadURL(sRef(storage, S.docs.find(d=>d.id===a.dataset.dl).storagePath)); window.open(url,'_blank','noopener'); await audit('DOCUMENT_DOWNLOADED', a.dataset.dl, {}); }catch(err){ toast(err?.message||'Error','bad'); } });
+  $$('[data-del]').forEach(b=> b.onclick = ()=>removeDocument(b.dataset.del));
+}
+async function uploadDoc(inp, type){
+  if(!S.emailVerified) return toast(t('verify_banner'),'bad');
+  const file = inp.files[0]; if(!file) return;
+  if(!DOC_ALLOWED_MIME.includes(file.type)) return toast(LANG==='hi'?'केवल PDF / JPG / PNG मान्य है।':'Only PDF / JPG / PNG allowed.','bad');
+  if(file.size>DOC_MAX_BYTES) return toast(LANG==='hi'?'फ़ाइल 10MB से छोटी होनी चाहिए।':'File must be under 10MB.','bad');
+  const docId = randomId();
+  const ext = file.type.includes('pdf')?'pdf':(file.type.includes('png')?'png':'jpg');
+  const path = `studentDocuments/${S.user.uid}/${docId}.${ext}`;
+  try{
+    toast(t('uploading'));
+    const buf = await file.arrayBuffer();
+    const hash = await sha256Hex(buf);
+    await uploadBytes(sRef(storage,path), file, { contentType:file.type, customMetadata:{ ownerUid:S.user.uid, docType:type, sha256:hash } });
+    const prev = S.docs.find(d=>d.type===type);
+    if(prev){ try{ await deleteObject(sRef(storage,prev.storagePath)); await deleteDoc(doc(fsdb,'studentDocuments',prev.id)); }catch(e){} }
+    await setDoc(doc(fsdb,'studentDocuments',docId), {
+      userId:S.user.uid, type, fileName:file.name.slice(0,120), mimeType:file.type, sizeBytes:file.size,
+      storagePath:path, sha256:hash, status:'PENDING', uploadedAt:iso(),
+    });
+    await audit('DOCUMENT_UPLOADED', docId, { type, size:file.size });
+    await loadMine(); toast(t('uploaded'),'ok'); route();
+  }catch(err){ toast(err?.message||'Upload failed','bad'); }
+}
+async function removeDocument(id){
+  if(!confirm(LANG==='hi'?'दस्तावेज़ हटाएं?':'Delete this document?')) return;
+  const d = S.docs.find(x=>x.id===id); if(!d) return;
+  try{
+    try{ await deleteObject(sRef(storage,d.storagePath)); }catch(e){}
+    await deleteDoc(doc(fsdb,'studentDocuments',id));
+    await audit('DOCUMENT_DELETED', id, { type:d.type });
+    await loadMine(); toast(t('delete')+' ok'); route();
+  }catch(err){ toast(err?.message||'Error','bad'); }
+}
+
+/* ---------- find jobs ---------- */
+async function vJobs(root){
+  await ensureJobs();
+  const presetCat = sessionStorage.getItem('portal_cat'); sessionStorage.removeItem('portal_cat');
+  root.innerHTML = `<div class="pgtitle"><div><h2>${t('nav_jobs')}</h2><p><span id="job-count"></span></p></div>
+    <button class="btn ghost sm" id="jref">${svg.clock} ${t('refresh')}</button></div>
+    <div class="card mb16"><div class="grid2">
+      <input class="input" id="jq" placeholder="${t('search_jobs')}">
+      <select class="input" id="jcat"><option value="">${t('all_cats')}</option>${JOB_CATEGORIES.map(c=>`<option value="${c.value}">${L(c)}</option>`).join('')}</select>
+    </div></div>
+    <div class="grid2" id="joblist">${t('loading')}</div>`;
+  $('#jcat').value = presetCat||'';
+  const draw=()=>{
+    const q=$('#jq').value.toLowerCase().trim(), cat=$('#jcat').value;
+    let jobs=(S.jobs||[]).filter(j=>!q || [j.title,j.organization,j.location,j.department].some(x=>String(x||'').toLowerCase().includes(q))).filter(j=>!cat||j.category===cat);
+    jobs.sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+    $('#job-count').textContent = `${jobs.length} ${LANG==='hi'?'नौकरियाँ':'jobs'}`;
+    $('#joblist').innerHTML = jobs.length? jobs.map(j=>jobCard(j,{reasons:true})).join('') : `<div class="empty" style="grid-column:1/-1">${svg.bag}<p>${t('no_jobs')}</p></div>`;
+    bindApply($('#joblist'));
+  };
+  $('#jq').oninput=draw; $('#jcat').onchange=draw; $('#jref').onclick=()=>{ fetchJobs(true).then(draw); };
+  draw();
+}
+
+/* ---------- recommended ---------- */
+async function vRecommended(root){
+  if(!S.emailVerified){ root.innerHTML=`<div class="pgtitle"><h2>${t('nav_reco')}</h2></div><div class="empty">${svg.lock}<p>${t('verify_banner')}</p></div>`; return; }
+  await ensureJobs();
+  const jobs=(S.jobs||[]).filter(j=>!jobClosed(j)).map(j=>({j,s:matchScore(j)})).sort((a,b)=>b.s-a.s);
+  root.innerHTML = `<div class="pgtitle"><div><h2>${t('nav_reco')}</h2><p>${t('reco_note')}</p></div></div>
+    ${profileScore()<60?`<div class="card mb16" style="border-color:var(--amber-line);background:var(--amber-soft)"><span style="color:var(--amber);font-size:13.5px">${t('complete_profile_hint')}</span></div>`:''}
+    <div class="grid2" id="recolist">${jobs.length? jobs.slice(0,12).map(x=>jobCard(x.j,{score:x.s,reasons:x.s>=60})).join('') : `<div class="empty" style="grid-column:1/-1">${svg.star}<p>${t('no_jobs')}</p></div>`}</div>`;
+  bindApply($('#recolist'));
+}
+
+/* ---------- assistant ---------- */
+function vAssistant(root){
+  const hist = JSON.parse(sessionStorage.getItem('assist_chat')||'[]');
+  root.innerHTML = `<div class="pgtitle"><div><h2>${t('nav_assist')}</h2><p>${t('assist_note')}</p></div></div>
+    <div class="card"><div class="chatbox" id="chat">
+      <div class="chatmsg bot">${t('assist_intro')}</div>
+      ${hist.map(m=>`<div class="chatmsg ${m.me?'me':'bot'}">${esc(m.text)}</div>`).join('')}
+    </div>
+    <div class="qchips mt16">${[['q_eligible'],['q_docs'],['q_apply'],['q_deadline']].map(q=>`<button data-q="${q[0]}">${t(q[0])}</button>`).join('')}</div>
+    <div class="chatinput mt16"><input class="input" id="chatin" placeholder="${t('ask_ph')}"><button class="btn primary" id="chatsend">${t('send')}</button></div>
+    <div id="draftzone" class="mt16"></div></div>`;
+  const box=$('#chat'); box.scrollTop=box.scrollHeight;
+  const push=(text,me)=>{ hist.push({text,me}); sessionStorage.setItem('assist_chat',JSON.stringify(hist.slice(-30))); const d=document.createElement('div'); d.className='chatmsg '+(me?'me':'bot'); d.textContent=text; box.appendChild(d); box.scrollTop=box.scrollHeight; };
+  const answer=(q)=>{
+    const ql=q.toLowerCase();
+    if(ql.includes('document')||ql.includes('दस्तावेज़')||ql.includes('कागज')){
+      const need=['AADHAAR','TENTH_MARKSHEET','TWELFTH_MARKSHEET','PHOTO','SIGNATURE','RESUME'];
+      const missing=need.filter(n=>!S.docs.some(d=>d.type===n&&d.status!=='REJECTED'));
+      return LANG==='hi'
+        ? 'सामान्य रूप से आवश्यक दस्तावेज़: आधार, 10वीं और 12वीं मार्कशीट, फोटो, हस्ताक्षर, रिज़्यूमे। '+ (missing.length? 'आपके खाते में ये गायब हैं: '+missing.map(labelDoc).join(', ') : 'आपके पास सामान्य दस्तावेज़ मौजूद हैं।') + ' विशेष पद के लिए आधिकारिक अधिसूचना ज़रूर पढ़ें।'
+        : 'Commonly required documents: Aadhaar, 10th & 12th marksheets, photo, signature, resume. '+(missing.length? 'Missing in your account: '+missing.map(n=>DOCUMENT_TYPES.find(d=>d.value===n)?.en||n).join(', ') : 'You already have the common ones.')+' Always read the official notification for post-specific requirements.';
+    }
+    if(ql.includes('how')&&ql.includes('apply')||ql.includes('कैसे आवेदन')||ql.includes('आवेदन कैसे')){
+      return LANG==='hi'
+        ? 'प्रक्रिया: 1) प्रोफ़ाइल और शिक्षा पूरी करें 2) नौकरी कार्ड पर “आवेदन करें” से ड्राफ्ट बनाएं (या मुझसे) 3) ड्राफ्ट जांचें और स्वीकार करें 4) “आधिकारिक फ़ॉर्म खोलें” से आधिकारिक साइट पर जाकर स्वयं जमा करें 5) संदर्भ नं. “मेरे आवेदन” में दर्ज करें। मैं कभी भी आपके बिना जमा नहीं करता।'
+        : 'Process: 1) Complete profile & education 2) Create a draft via “Apply” on a job card (or ask me) 3) Review and approve the draft 4) Open the official form and submit it yourself 5) Record the reference number in “My Applications”. I never submit anything without you.';
+    }
+    if(ql.includes('deadline')||ql.includes('डेडलाइन')||ql.includes('आखिरी')){
+      const soon=(S.jobs||[]).filter(j=>j.applicationDeadline&&!jobClosed(j)&&daysTo(j.applicationDeadline)<=10).sort((a,b)=>daysTo(a.applicationDeadline)-daysTo(b.applicationDeadline)).slice(0,5);
+      return soon.length? (LANG==='hi'?'10 दिन में बंद होने वाली: ':'Closing within 10 days: ')+soon.map(j=>`${j.title} — ${fmtDate(j.applicationDeadline)} (${daysTo(j.applicationDeadline)} ${t('days_left')})`).join('; ') : (LANG==='hi'?'अगले 10 दिन में कोई डेडलाइन नहीं।':'No deadlines in the next 10 days.');
+    }
+    if(ql.includes('eligib')||ql.includes('योग्य')||ql.includes('qualif')||ql.includes('पात्र')){
+      if(!S.jobs?.length) return t('no_jobs');
+      const top=(S.jobs||[]).filter(j=>!jobClosed(j)).map(j=>({j,s:matchScore(j)})).sort((a,b)=>b.s-a.s).slice(0,3);
+      return LANG==='hi'
+        ? 'आपकी रुचि के लिए सर्वश्रेष्ठ मैच: '+top.map(x=>`${x.j.title} (${x.s}%)`).join(', ')+'. “सुझाई गई नौकरियाँ” में पूरी सूची और हर पद का कारण देखें।'
+        : 'Your best matches: '+top.map(x=>`${x.j.title} (${x.s}%)`).join(', ')+'. See “Recommended” for the full list with reasons.';
+    }
+    if(ql.includes('wallet')||ql.includes('वॉलेट')||ql.includes('पैस')){
+      return LANG==='hi'?'वॉलेट ₹100 के रिचार्ज से शुरू होता है और सीमा ₹1,000 है। हर क्रेडिट एडमिन द्वारा सत्यापित UPI भुगतान के बाद होता है — पूरा लेजर “लेन-देन इतिहास” में देखें।':'The wallet starts with a ₹100 top-up and is capped at ₹1,000. Every credit follows an admin-verified UPI payment — see the full ledger in “Transactions”.';
+    }
+    return LANG==='hi'
+      ? 'मैं योग्यता, दस्तावेज़, आवेदन प्रक्रिया, डेडलाइन और वॉलेट के बारे में मदद कर सकता हूँ। किसी विशेष पद के लिए नौकरी कार्ड पर “आवेदन करें” दबाएं — मैं आपके प्रोफ़ाइल डेटा से ड्राफ्ट तैयार कर दूंगा।'
+      : 'I can help with eligibility, documents, the application process, deadlines and the wallet. For a specific post, press “Apply” on its card — I will prepare a draft from your profile data.';
+  };
+  const ask=(text)=>{ if(!text.trim())return; push(text,true); setTimeout(()=>push(answer(text),false),350); };
+  $('#chatsend').onclick=()=>{ ask($('#chatin').value); $('#chatin').value=''; };
+  $('#chatin').onkeydown=(e)=>{ if(e.key==='Enter'){ ask(e.target.value); e.target.value=''; } };
+  $$('[data-q]').forEach(b=>b.onclick=()=>ask(t(b.dataset.q)));
+
+  /* draft flow */
+  const draftZone=$('#draftzone');
+  const openDraft=()=>{
+    if(!S.jobs?.length) return toast(t('no_jobs'),'bad');
+    const opts=(S.jobs||[]).filter(j=>!jobClosed(j)).slice(0,30).map(j=>`<option value="${j.id}">${esc(j.title)} — ${esc(j.organization)}</option>`).join('');
+    draftZone.innerHTML=`<div class="card" style="border-color:var(--blue-line);background:var(--blue-soft)">
+      <h3>${t('draft_for')}</h3>
+      <select class="input mt8" id="draftjob">${opts}</select>
+      <button class="btn primary mt16" id="mkdraft">${LANG==='hi'?'ड्राफ्ट बनाएं':'Create draft'}</button></div>`;
+    $('#mkdraft').onclick=()=>showDraft($('#draftjob').value);
+  };
+  const showDraft=async(jobId)=>{
+    await fetchJobs(); const job=(S.jobs||[]).find(j=>j.id===jobId); if(!job) return;
+    const p=S.profile||{};
+    const rows=[['full_name',p.fullName||S.user.displayName||''],['email_gmail',S.user.email],['mobile',p.mobile||''],['dob',p.dateOfBirth||''],['category',p.resCategory?labelRes(p.resCategory):'—'],
+      ['state',p.state||'—'],['edu_level',S.edu.length?labelEdu(S.edu.slice().sort((a,b)=>eduRank(b.level)-eduRank(a.level))[0].level):'—'],['board',S.edu[0]?.board||'—']];
+    draftZone.innerHTML=`<div class="card"><h3>${t('draft_title')}: ${esc(job.title)}</h3>
+      <div class="mt8">${rows.map(r=>`<div class="kv"><span>${t(r[0])}</span><b>${esc(r[1])}</b></div>`).join('')}</div>
+      <div class="warnbox" style="background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:10px;padding:10px 14px;margin-top:12px;font-size:13px;color:var(--amber)">
+        ${LANG==='hi'?'यह केवल पोर्टल-ड्राफ्ट है। अंतिम जमा आधिकारिक फ़ॉर्म पर आप स्वयं करेंगे — AI कभी स्वतः जमा नहीं करता और योग्यता/अंक नहीं बनाता।':'This is a portal-side draft only. Final submission happens by you on the official form — AI never auto-submits and never fabricates qualifications/marks.'}</div>
+      <div class="row mt16"><button class="btn primary" id="okdraft">${t('approve_create')}</button>
+      ${job.applyUrl?`<a class="btn ghost" href="${esc(job.applyUrl)}" target="_blank" rel="noopener noreferrer">${svg.ext} ${t('open_official')}</a>`:''}</div></div>`;
+    $('#okdraft').onclick=()=>applyToJob(jobId);
+  };
+  const chip=document.createElement('button'); chip.className='btn ghost mt16'; chip.textContent=t('draft_for'); chip.onclick=openDraft;
+  $('.qchips').appendChild(chip);
+}
+
+/* ---------- applications ---------- */
+function vApplications(root){
+  const apps=S.apps.slice().sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+  const steps=['DRAFT','READY','APPROVED','SUBMITTED'];
+  root.innerHTML=`<div class="pgtitle"><div><h2>${t('nav_apps')}</h2><p>${apps.length} ${LANG==='hi'?'आवेदन':'applications'}</p></div></div>
+    ${apps.length? apps.map(a=>{
+      const idx=steps.indexOf(a.status);
+      return `<div class="card mb16"><div class="spread"><div><h3>${esc(a.jobTitle)}</h3><p class="muted" style="font-size:13px">${esc(a.organization)} · ${a.referenceNumber?t('ref_no')+' '+esc(a.referenceNumber):''}</p></div>
+        <span class="badge ${a.status==='SUCCESS'?'b-green':a.status==='REJECTED'?'b-red':a.status==='WITHDRAWN'?'b-grey':'b-blue'}">${labelSt(a.status)}</span></div>
+        <div class="tl mt16">${steps.map((s,i)=>{
+          const done=a.status==='SUCCESS'||a.status==='UNDER_REVIEW'||a.status==='INTERVIEW'||steps.indexOf(a.status)>i;
+          const now=a.status===s;
+          return `<div class="tstep ${done?'done':''} ${now?'now':''}"><span class="tdot">${done||now?svg.check:''}</span><div><b>${labelSt(s)}</b>${now?`<span>${fmtDT(a.updatedAt)}</span>`:''}</div></div>`; }).join('')}</div>
+        ${a.status==='SUCCESS'||a.status==='REJECTED'?`<div class="kv"><span>${LANG==='hi'?'निर्णय':'Decision'}</span><b>${labelSt(a.status)}</b></div>`:''}
+        <div class="actions row mt16">
+          ${a.applyUrl?`<a class="btn ghost sm" href="${esc(a.applyUrl)}" target="_blank" rel="noopener noreferrer">${svg.ext} ${t('open_official')}</a>`:''}
+          ${a.status==='DRAFT'||a.status==='READY'?`<button class="btn primary sm" data-ref="${a.id}">${t('mark_submitted')}</button>`:''}
+          ${a.status==='SUBMITTED'?`<span class="badge b-blue">${labelSt('UNDER_REVIEW')}…</span>`:''}
+          ${['DRAFT','READY','APPROVED','SUBMITTED'].includes(a.status)?`<button class="btn danger sm" data-wd="${a.id}">${t('withdraw')}</button>`:''}
+        </div></div>`; }).join('')
+      : `<div class="empty">${svg.list}<p>${t('no_apps')}</p></div>`}`;
+  $$('[data-ref]').forEach(b=>b.onclick=()=>{
+    const ref=prompt(LANG==='hi'?'आधिकारिक फ़ॉर्म से मिला संदर्भ/रजिस्ट्रेशन नं. दर्ज करें:':'Enter the reference/registration number from the official form:');
+    if(!ref) return;
+    updateApp(b.dataset.ref,{ status:'SUBMITTED', referenceNumber:ref.trim() });
+  });
+  $$('[data-wd]').forEach(b=>b.onclick=()=>{ if(confirm(t('withdraw')+'?')) updateApp(b.dataset.wd,{status:'WITHDRAWN'}); });
+}
+async function updateApp(id, patch){
+  const a=S.apps.find(x=>x.id===id); if(!a) return;
+  try{
+    const history=[...(a.history||[]),{status:patch.status, at:iso(), by:'student'}];
+    await updateDoc(doc(fsdb,'applications',id), {...patch, history, updatedAt:iso()});
+    await audit('APPLICATION_'+patch.status, id, {}); await loadMine(); route();
+  }catch(e){ toast(e?.message||'Error','bad'); }
+}
+
+/* ---------- wallet ---------- */
+function vWallet(root){
+  const bal=S.balance||0; const pend=[];
+  root.innerHTML=`<div class="pgtitle"><div><h2>${t('nav_wallet')}</h2><p>${t('cap_note')}</p></div></div>
+    <div class="card mb16" style="background:linear-gradient(135deg,var(--blue-dark),var(--blue));color:#fff;border:0">
+      <div class="spread"><div><span style="opacity:.85;font-size:13px">${t('balance')}</span><div style="font-size:34px;font-weight:800">${money(bal)}</div>
+      <span style="font-size:12px;opacity:.8">${LANG==='hi'?'सीमा: ₹1,000':'Cap: ₹1,000'}</span></div>${svg.wallet.replace('<svg','<svg style="width:44px;height:44px;opacity:.5"')}</div>
+    </div>
+    ${!S.emailVerified?`<div class="card mb16" style="border-color:var(--amber-line);background:var(--amber-soft)"><span style="color:var(--amber);font-size:13.5px">${t('verify_banner')}</span></div>`:`
+    <div class="card mb16"><h3>${t('topup')}</h3>
+      ${PORTAL_SETTINGS.upiId? `<p class="muted" style="font-size:14px">${LANG==='hi'?'इस UPI ID पर भुगतान करें:':'Pay to this UPI ID:'} <b>${esc(PORTAL_SETTINGS.upiId)}</b></p><p class="faint mb16">${PORTAL_SETTINGS.upiNoteHi}</p>`
+        : `<p class="faint mb16">${t('no_upi')}</p>`}
+      <div class="grid2">
+        <label class="f"><span>${t('amount')} <span class="req">*</span></span><input class="input" id="w-amt" type="number" min="${WALLET.MIN_TOPUP}" max="${WALLET.MAX_BALANCE-bal||WALLET.MIN_TOPUP}" step="10" placeholder="${WALLET.MIN_TOPUP}"></label>
+        <label class="f"><span>${t('txn_id')} <span class="req">*</span></span><input class="input" id="w-txn" maxlength="60" placeholder="UTR / TXN123456"></label>
+        <label class="f"><span>${t('payer')}</span><input class="input" id="w-payer" maxlength="80"></label>
+      </div>
+      <button class="btn primary" id="w-send" ${PORTAL_SETTINGS.upiId?'':'disabled'}>${t('request_topup')}</button></div>`}
+    <div class="card"><h3>${t('topup_pending')}</h3><div id="w-pend" class="mt8">${t('loading')}</div></div>`;
+  const wsend=$('#w-send');
+  wsend&&(wsend.onclick=async()=>{
+    const amt=Number($('#w-amt').value), txn=$('#w-txn').value.trim(), payer=$('#w-payer').value.trim();
+    if(!amt||amt<WALLET.MIN_TOPUP||amt+bal>WALLET.MAX_BALANCE) return toast(LANG==='hi'?`राशि ₹${WALLET.MIN_TOPUP}–₹${WALLET.MAX_BALANCE-bal} के बीच हो।`:`Amount must be ₹${WALLET.MIN_TOPUP}–₹${WALLET.MAX_BALANCE-bal}.`,'bad');
+    if(txn.length<6) return toast(LANG==='hi'?'मान्य Transaction ID दर्ज करें।':'Enter a valid transaction ID.','bad');
+    busy(wsend,true);
+    try{
+      await addDoc(colRef('topupRequests'),{ userId:S.user.uid, email:S.user.email, amount:amt, txnId:txn, payerName:payer, status:'PENDING', requestedAt:iso() });
+      await audit('WALLET_TOPUP_REQUESTED', txn, { amount:amt });
+      toast(t('topup_ok'),'ok'); route();
+    }catch(e){ toast(e?.message||'Error','bad'); }
+    busy(wsend,false);
+  });
+  getDocs(query(colRef('topupRequests'), where('userId','==',S.user.uid))).then(snap=>{
+    const el=$('#w-pend'); if(!el) return;
+    const rows=snap.docs.map(d=>({id:d.id,...d.data()})).filter(r=>r.status==='PENDING').sort((a,b)=>String(b.requestedAt||'').localeCompare(String(a.requestedAt||'')));
+    el.innerHTML=rows.length? rows.map(r=>`<div class="kv"><span>${money(r.amount)} · ${esc(r.txnId)}</span><b>${fmtDT(r.requestedAt)}</b></div>`).join('') : `<span class="faint">—</span>`;
+  }).catch(()=>{ const el=$('#w-pend'); el&& (el.innerHTML='<span class="faint">—</span>'); });
+}
+
+/* ---------- transactions ---------- */
+function vTransactions(root){
+  const tx=S.tx.slice().sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+  root.innerHTML=`<div class="pgtitle"><div><h2>${t('nav_tx')}</h2><p>${t('ledger')}</p></div></div>
+    ${tx.length? `<div class="tblwrap"><table class="tbl"><thead><tr><th>${LANG==='hi'?'तारीख':'Date'}</th><th>${LANG==='hi'?'प्रकार':'Type'}</th><th>${t('amount')}</th><th>${LANG==='hi'?'विवरण':'Description'}</th><th>${LANG==='hi'?'स्थिति':'Status'}</th></tr></thead>
+    <tbody>${tx.map(r=>`<tr><td>${fmtDT(r.createdAt)}</td>
+      <td><span class="badge ${r.type==='CREDIT'?'b-green':'b-blue'}">${t('tx_'+(r.type||'CREDIT'))}</span></td>
+      <td><b>${(r.type==='DEBIT'?'−':'+')+money(r.amount)}</b></td><td>${esc(r.description||r.source||'—')}</td>
+      <td><span class="badge b-grey">${esc(r.status||'—')}</span></td></tr>`).join('')}</tbody></table></div>`
+    : `<div class="empty">${svg.rupee}<p>${t('no_tx')}</p></div>`}`;
+}
+
+/* ---------- notifications ---------- */
+function vNotifications(root){
+  root.innerHTML=`<div class="pgtitle"><div><h2>${t('nav_notif')}</h2><p>${S.notifs.length} · ${S.unread} ${LANG==='hi'?'अपठित':'unread'}</p></div></div>
+    ${S.notifs.length? S.notifs.map(n=>`<div class="card mb16" style="${n.read?'':'border-left:4px solid var(--blue)'}">
+      <div class="spread"><h3 style="font-size:15px">${esc(n.title)}</h3><span class="faint">${fmtDT(n.createdAt)}</span></div>
+      <p class="muted mt8" style="font-size:14px;white-space:pre-wrap">${esc(n.body||'')}</p>
+      ${n.link?`<a class="btn ghost sm mt8" href="#/${n.link}" data-nav>${t('view')}</a>`:''}
+      ${!n.read?`<button class="btn ghost sm mt8" data-read="${n.id}">${t('mark_read')}</button>`:''}
+    </div>`).join('') : `<div class="empty">${svg.bell}<p>${t('no_notifs')}</p></div>`}`;
+  $$('[data-read]').forEach(b=>b.onclick=async()=>{ try{ await updateDoc(doc(fsdb,'notifications',b.dataset.read),{read:true}); await loadNotifs(); route(); }catch(e){ toast(e?.message,'bad'); } });
+}
+
+/* ---------- settings ---------- */
+function vSettings(root){
+  root.innerHTML=`<div class="pgtitle"><div><h2>${t('nav_settings')}</h2><p>${esc(S.user.email)} · ${S.emailVerified?(LANG==='hi'?'ईमेल सत्यापित':'email verified'):'—'}</p></div></div>
+    <div class="grid2">
+      <div class="card"><h3>${t('change_pass')}</h3><p class="muted mt8" style="font-size:13.5px">${LANG==='hi'?'आपके Gmail पर सुरक्षित पासवर्ड-बदलें लिंक भेजा जाएगा।':'A secure password-change link will be sent to your Gmail.'}</p>
+        <button class="btn ghost mt16" id="s-pass">${t('send')}</button></div>
+      <div class="card"><h3>${t('export_data')}</h3><p class="muted mt8" style="font-size:13.5px">${LANG==='hi'?'प्रोफ़ाइल, शिक्षा, आवेदन और लेन-देन JSON फ़ाइल में।':'Profile, education, applications and transactions as a JSON file.'}</p>
+        <button class="btn ghost mt16" id="s-export">${svg.dl} ${t('export_data')}</button></div>
+      <div class="card"><h3>${t('del_account')}</h3><p class="muted mt8" style="font-size:13.5px">${t('del_note')}</p>
+        <label class="f mt16"><span>${t('del_reason')}</span><textarea class="input" id="s-reason" maxlength="500"></textarea></label>
+        <button class="btn danger" id="s-del">${t('del_account')}</button></div>
+      <div class="card"><h3>${LANG==='hi'?'सत्र / भाषा':'Session / language'}</h3>
+        <div class="row mt16"><button class="btn ghost" id="s-lang">${LANG==='hi'?'English में बदलें':'Switch to हिंदी'}</button>
+        <button class="btn danger" id="s-logout">${t('login')==='Login'?'Logout':'लॉगआउट'}</button></div>
+        <p class="faint mt16">${esc(PORTAL_SETTINGS.grievanceEmail)} · ${esc(PORTAL_SETTINGS.grievancePhone)}</p></div>
+    </div>`;
+  $('#s-pass').onclick=async()=>{ busy($('#s-pass'),true); try{ await sendPasswordResetEmail(auth,S.user.email); toast(t('reset_ok'),'ok'); }catch(e){ toast(e?.message,'bad'); } busy($('#s-pass'),false); };
+  $('#s-export').onclick=async()=>{
+    const data={ exportedAt:iso(), profile:S.profile, education:S.edu, documents:S.docs.map(d=>({...d,storagePath:undefined})), applications:S.apps, transactions:S.tx, notifications:S.notifs };
+    const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})); a.download='my-data.json'; a.click();
+    await audit('DATA_EXPORTED', S.user.uid, {});
+  };
+  $('#s-del').onclick=async()=>{
+    if(!confirm(LANG==='hi'?'खाता हटाने का अनुरोध दर्ज करें?':'Record the account deletion request?')) return;
+    try{ await addDoc(colRef('deletionRequests'),{ userId:S.user.uid, email:S.user.email, reason:$('#s-reason').value.trim(), status:'PENDING', requestedAt:iso() });
+      await audit('ACCOUNT_DELETION_REQUESTED', S.user.uid, {}); toast(t('del_sent'),'ok');
+    }catch(e){ toast(e?.message,'bad'); }
+  };
+  $('#s-lang').onclick=()=>{ LANG=LANG==='hi'?'en':'hi'; localStorage.setItem('portal_lang',LANG); route(); };
+  $('#s-logout').onclick=doLogout;
+}
+
+/* ---------- no admin ---------- */
+function renderNoAdmin(){
+  $('#bottomnav').classList.add('hide');
+  $('#view').innerHTML=`<div class="authwrap"><div class="authcard center">
+    ${svg.shield.replace('<svg','<svg style="width:40px;height:40px;margin:0 auto 12px;color:var(--blue)"')}
+    <h2>${t('nav_admin')}</h2><p class="muted mt8" style="font-size:14px">${t('only_admin')}</p>
+    <div class="card mt16" style="text-align:left;box-shadow:none;background:var(--grey)"><p style="font-size:13px">${t('how_admin')}</p></div>
+    <a class="btn ghost mt16" href="#/dashboard" data-nav>${t('nav_dashboard')}</a></div></div>`;
+}
+
+/* ================================================================
+   ADMIN PANEL — requires custom claim admin=true (set-admin script)
+   ================================================================ */
+async function renderAdmin(){
+  $('#bottomnav').classList.add('hide');
+  const tabs=[['dashboard',t('adm_dashboard'),'grid'],['students',t('adm_students'),'users'],['jobs',t('adm_jobs'),'bag'],['docs',t('adm_docs'),'doc'],['apps',t('adm_apps'),'list'],['wallet',t('adm_wallet'),'wallet'],['notifs',t('adm_notifs'),'bell'],['security',t('adm_security'),'shield']];
+  const active=sessionStorage.getItem('adm_tab')||'dashboard';
+  $('#view').innerHTML=`<div class="wrap mt16">
+    <div class="pgtitle"><div><h2>${t('nav_admin')}</h2><p>${esc(S.user.email)}</p></div>
+      <span class="badge b-green">${svg.check} ${t('nav_admin')}</span></div>
+    <div class="tabs">${tabs.map(x=>`<button data-at="${x[0]}" class="${active===x[0]?'on':''}">${x[1]}</button>`).join('')}</div>
+    <div id="adm-body">${t('loading')}</div></div>`;
+  $$('[data-at]').forEach(b=>b.onclick=()=>{ sessionStorage.setItem('adm_tab',b.dataset.at); renderAdmin(); });
+  const body=$('#adm-body');
+  ({dashboard:admDashboard,students:admStudents,jobs:admJobs,docs:admDocs,apps:admApps,wallet:admWallet,notifs:admNotifs,security:admSecurity}[active])(body);
+}
+async function admAll(colName, max=300){
+  const snap=await getDocs(query(colRef(colName), qLimit(max)));
+  return snap.docs.map(d=>({id:d.id,...d.data()}));
+}
+function admDashboard(root){
+  root.innerHTML=`<div class="kpis mb16">
+    <div class="kpi"><b id="a-us">–</b><span>${t('k_students')}</span></div>
+    <div class="kpi"><b id="a-jb">–</b><span>${t('k_jobs')}</span></div>
+    <div class="kpi"><b id="a-ap">–</b><span>${t('k_apps')}</span></div>
+    <div class="kpi"><b id="a-pd">–</b><span>${t('k_pending')}</span></div></div>
+    <div class="card"><h3>${t('sec_how')}</h3><p class="muted mt8" style="font-size:13.5px">${LANG==='hi'?'नौकरियाँ जोड़ते समय हमेशा आधिकारिक अधिसूचना URL दर्ज करें और सत्यापन के बाद ही प्रकाशित करें। दस्तावेज़ समीक्षा में फ़ाइल खोलकर ही VERIFIED करें। वॉलेट क्रेडिट केवल वास्तविक UPI सत्यापन के बाद।':'When adding jobs always record the official notification URL and publish only after verification. In document review, open the file before marking VERIFIED. Credit wallets only after actually verifying the UPI payment.'}</p></div>`;
+  Promise.all([admAll('users'),admAll('jobs'),admAll('applications'),admAll('topupRequests'),admAll('studentDocuments')]).then(([us,jb,ap,tp,dc])=>{
+    const set=(id,v)=>{const e=$(id); e&&(e.textContent=v);};
+    set('#a-us',us.length); set('#a-jb',jb.filter(j=>j.status==='PUBLISHED').length); set('#a-ap',ap.length);
+    set('#a-pd', tp.filter(r=>r.status==='PENDING').length + dc.filter(d=>d.status==='PENDING').length);
+  }).catch(e=>{ root.innerHTML=`<div class="empty">${svg.shield}<p>${esc(e.message)}</p></div>`; });
+}
+async function admStudents(root){
+  const users=await admAll('users');
+  root.innerHTML=`<div class="tblwrap"><table class="tbl"><thead><tr><th>${t('full_name')}</th><th>${t('email_gmail')}</th><th>${t('mobile')}</th><th>${LANG==='hi'?'स्थिति':'Status'}</th><th>${t('profile_complete')}</th><th></th></tr></thead>
+    <tbody>${users.map(u=>`<tr><td><b>${esc(u.fullName||'—')}</b></td><td>${esc(u.email)}</td><td>${esc(u.mobile||'—')}</td>
+      <td><span class="badge ${u.status==='ACTIVE'?'b-green':u.status==='SUSPENDED'?'b-red':'b-grey'}">${esc(u.status||'ACTIVE')}</span> ${u.profileVerified?`<span class="badge b-blue">${t('verify_profile')}</span>`:''}</td>
+      <td>${u.profileVerified?'100%':'—'}</td>
+      <td class="row">${!u.profileVerified?`<button class="btn sm ghost" data-verify="${u.id}">${svg.check}</button>`:''}
+        <button class="btn sm ${u.status==='ACTIVE'?'danger':'ghost'}" data-sus="${u.id}" data-next="${u.status==='ACTIVE'?'SUSPENDED':'ACTIVE'}">${u.status==='ACTIVE'?t('suspend'):t('activate')}</button></td></tr>`).join('')}</tbody></table></div>`;
+  $$('[data-verify]').forEach(b=>b.onclick=async()=>{ await updateDoc(doc(fsdb,'users',b.dataset.verify),{profileVerified:true,verifiedAt:iso(),verifiedBy:S.user.uid}); await audit('ADMIN_PROFILE_VERIFIED',b.dataset.verify,{}); toast(t('saved'),'ok'); admStudents(root); });
+  $$('[data-sus]').forEach(b=>b.onclick=async()=>{ await updateDoc(doc(fsdb,'users',b.dataset.sus),{status:b.dataset.next,updatedAt:iso()}); await audit('ADMIN_USER_'+b.dataset.next,b.dataset.sus,{}); admStudents(root); });
+}
+async function admJobs(root){
+  const jobs=(await admAll('jobs')).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+  root.innerHTML=`<div class="spread mb16"><span class="count-pill">${jobs.length}</span>
+    <button class="btn primary sm" id="jadd">${svg.check} ${t('add_job')}</button></div>
+    <div id="jform" class="card hide mb16"><h3>${t('add_job')}</h3>
+      <div class="grid2 mt8">
+        <label class="f"><span>${LANG==='hi'?'पद का नाम':'Post title'} <span class="req">*</span></span><input class="input" id="j-title" maxlength="140"></label>
+        <label class="f"><span>${t('org')} <span class="req">*</span></span><input class="input" id="j-org" maxlength="120"></label>
+        <label class="f"><span>${t('dept')}</span><input class="input" id="j-dept" maxlength="120"></label>
+        <label class="f"><span>${LANG==='hi'?'श्रेणी':'Category'} <span class="req">*</span></span><select class="input" id="j-cat">${JOB_CATEGORIES.map(c=>`<option value="${c.value}">${L(c)}</option>`).join('')}</select></label>
+        <label class="f"><span>${t('salary')}</span><input class="input" id="j-salary" maxlength="100" placeholder="₹18,000–56,900"></label>
+        <label class="f"><span>${t('edu_level')} <span class="req">*</span></span><select class="input" id="j-qual">${EDUCATION_LEVELS.filter(e=>e.value!=='OTHER').map(e=>`<option value="${e.value}">${L(e)}</option>`).join('')}</select></label>
+        <label class="f"><span>${t('qual_text')}</span><input class="input" id="j-qualtext" maxlength="300"></label>
+        <label class="f">${t('min_age')}<input class="input" id="j-minage" type="number" min="14" max="60" value="18"></label>
+        <label class="f">${t('max_age')}<input class="input" id="j-maxage" type="number" min="14" max="70" value="35"></label>
+        <label class="f"><span>${t('loc')}</span><input class="input" id="j-loc" maxlength="120"></label>
+        <label class="f"><span>${t('state')}</span><select class="input" id="j-state"><option value="">${LANG==='hi'?'सभी भारत':'All India'}</option>${INDIAN_STATES.map(s=>`<option>${s}</option>`).join('')}</select></label>
+        <label class="f">${t('vac_n')}<input class="input" id="j-vac" type="number" min="0"></label>
+        <label class="f"><span>${t('apply_start')}</span><input class="input" id="j-start" type="date"></label>
+        <label class="f"><span>${t('last_date')} <span class="req">*</span></span><input class="input" id="j-dead" type="date"></label>
+        <label class="f">${t('fee_n')}<input class="input" id="j-fee" type="number" min="0" value="0"></label>
+        <label class="f"><span>${t('apply_url')} <span class="req">*</span></span><input class="input" id="j-applyurl" type="url" placeholder="https://…"></label>
+        <label class="f"><span>${t('src_url')}</span><input class="input" id="j-srcurl" type="url" placeholder="https://…"></label>
+        <label class="f"><span>${t('src_name')}</span><input class="input" id="j-srcname" maxlength="120"></label>
+        <label class="f"><span>${t('skills_txt')}</span><input class="input" id="j-skills" maxlength="200"></label>
+      </div>
+      <label class="f"><span>${t('descr')}</span><textarea class="input" id="j-desc" maxlength="1500"></textarea></label>
+      <div class="row"><button class="btn primary" id="j-save">${t('save')}</button><button class="btn ghost" id="j-cancel">${t('cancel')}</button></div></div>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>${LANG==='hi'?'पद':'Title'}</th><th>${t('org')}</th><th>${LANG==='hi'?'श्रेणी':'Category'}</th><th>${t('last_date')}</th><th>${LANG==='hi'?'स्थिति':'Status'}</th><th></th></tr></thead>
+      <tbody>${jobs.map(j=>`<tr><td><b>${esc(j.title)}</b></td><td>${esc(j.organization)}</td><td>${labelCat(j.category)}</td><td>${fmtDate(j.applicationDeadline)}</td>
+        <td><span class="badge ${j.status==='PUBLISHED'?'b-green':j.status==='CLOSED'?'b-grey':'b-amber'}">${esc(j.status)}</span>${j.verified?' <span class="badge b-green">'+t('verified_badge')+'</span>':''}</td>
+        <td class="row">${!j.verified?`<button class="btn sm ghost" data-jv="${j.id}" title="${t('verify_src')}">${svg.shieldok}</button>`:''}
+          <button class="btn sm ghost" data-jp="${j.id}" data-next="${j.status==='PUBLISHED'?'DRAFT':'PUBLISHED'}">${j.status==='PUBLISHED'?t('unpublish'):t('publish')}</button>
+          ${j.status!=='CLOSED'?`<button class="btn sm ghost" data-jc="${j.id}">${t('close_job')}</button>`:''}
+          <button class="btn sm danger" data-jd="${j.id}">${svg.trash}</button></td></tr>`).join('')||'<tr><td colspan="6" class="center faint">—</td></tr>'}</tbody></table></div>`;
+  $('#jadd').onclick=()=>{ $('#jform').classList.remove('hide'); $('#jform').scrollIntoView({behavior:'smooth'}); };
+  $('#j-cancel').onclick=()=>$('#jform').classList.add('hide');
+  $('#j-save').onclick=async(e)=>{
+    const g=id=>$(id).value.trim();
+    if(!g('#j-title')||!g('#j-org')||!g('#j-dead')||!g('#j-applyurl')) return toast(LANG==='hi'?'पद, संस्था, आखिरी तारीख और आधिकारिक लिंक अनिवार्य।':'Title, organization, last date and official link are required.','bad');
+    busy(e.target,true,t('save'));
+    try{
+      await addDoc(colRef('jobs'),{
+        title:g('#j-title'), organization:g('#j-org'), department:g('#j-dept'), category:g('#j-cat'),
+        salaryText:g('#j-salary'), qualificationLevel:g('#j-qual'), qualificationsText:g('#j-qualtext'),
+        minAge:Number(g('#j-minage'))||18, maxAge:Number(g('#j-maxage'))||35, location:g('#j-loc'), state:g('#j-state'),
+        vacancies:Number(g('#j-vac'))||null, feeGeneral:Number(g('#j-fee'))||0,
+        applicationStart:g('#j-start'), applicationDeadline:g('#j-dead'),
+        applyUrl:g('#j-applyurl'), sourceUrl:g('#j-srcurl'), sourceName:g('#j-srcname'),
+        description:g('#j-desc'), skillsText:g('#j-skills'),
+        status:'DRAFT', verified:false, createdAt:iso(), createdBy:S.user.uid,
+      });
+      await audit('ADMIN_JOB_ADDED', g('#j-title'), { category:g('#j-cat') });
+      toast(t('saved'),'ok'); admJobs(root);
+    }catch(err){ toast(err?.message||'Error','bad'); }
+    busy(e.target,false);
+  };
+  $$('[data-jv]').forEach(b=>b.onclick=async()=>{ await updateDoc(doc(fsdb,'jobs',b.dataset.jv),{verified:true,verifiedBy:S.user.uid,verifiedAt:iso()}); await audit('ADMIN_JOB_VERIFIED',b.dataset.jv,{}); admJobs(root); });
+  $$('[data-jp]').forEach(b=>b.onclick=async()=>{ await updateDoc(doc(fsdb,'jobs',b.dataset.jp),{status:b.dataset.next,updatedAt:iso()}); await audit('ADMIN_JOB_'+b.dataset.next,b.dataset.jp,{}); admJobs(root); });
+  $$('[data-jc]').forEach(b=>b.onclick=async()=>{ await updateDoc(doc(fsdb,'jobs',b.dataset.jc),{status:'CLOSED',updatedAt:iso()}); await audit('ADMIN_JOB_CLOSED',b.dataset.jc,{}); admJobs(root); });
+  $$('[data-jd]').forEach(b=>b.onclick=async()=>{ if(!confirm('Delete?')) return; await deleteDoc(doc(fsdb,'jobs',b.dataset.jd)); await audit('ADMIN_JOB_DELETED',b.dataset.jd,{}); admJobs(root); });
+}
+async function admDocs(root){
+  const docs=await admAll('studentDocuments');
+  const users=await admAll('users'); const byId=Object.fromEntries(users.map(u=>[u.id,u]));
+  const rows=docs.sort((a,b)=>String(b.uploadedAt||'').localeCompare(String(a.uploadedAt||'')));
+  root.innerHTML=`<div class="tblwrap"><table class="tbl"><thead><tr><th>${LANG==='hi'?'छात्र':'Student'}</th><th>${t('doc_type')}</th><th>${LANG==='hi'?'फ़ाइल':'File'}</th><th>${t('status')}</th><th></th></tr></thead>
+    <tbody>${rows.map(d=>`<tr><td>${esc(byId[d.userId]?.email||d.userId)}</td><td>${labelDoc(d.type)}</td><td class="faint">${esc(d.fileName)} · ${(d.sizeBytes/1024/1024).toFixed(2)} MB</td>
+      <td><span class="badge ${d.status==='VERIFIED'?'b-green':d.status==='REJECTED'?'b-red':'b-amber'}">${d.status==='VERIFIED'?t('status_verified'):d.status==='REJECTED'?t('status_rejected'):t('status_pending')}</span></td>
+      <td class="row"><a class="btn sm ghost" data-av="${d.id}" target="_blank" rel="noopener noreferrer">${svg.view}</a>
+        <button class="btn sm ghost" data-ok="${d.id}">${svg.check}</button>
+        <button class="btn sm danger" data-no="${d.id}">${svg.x}</button></td></tr>`).join('')||'<tr><td colspan="5" class="center faint">—</td></tr>'}</tbody></table></div>`;
+  $$('[data-av]').forEach(a=>a.onclick=async(e)=>{ e.preventDefault(); const d=rows.find(x=>x.id===a.dataset.av); try{ const url=await getDownloadURL(sRef(storage,d.storagePath)); window.open(url,'_blank','noopener'); await audit('ADMIN_DOCUMENT_ACCESSED',d.id,{owner:d.userId}); }catch(err){ toast(err?.message,'bad'); } });
+  $$('[data-ok]').forEach(b=>b.onclick=async()=>{ await updateDoc(doc(fsdb,'studentDocuments',b.dataset.ok),{status:'VERIFIED',reviewedBy:S.user.uid,reviewedAt:iso()}); await audit('ADMIN_DOCUMENT_VERIFIED',b.dataset.ok,{}); admDocs(root); });
+  $$('[data-no]').forEach(b=>b.onclick=async()=>{ const n=prompt(LANG==='hi'?'अस्वीकृति का कारण (छात्र को दिखेगा):':'Reason (shown to student):')||''; await updateDoc(doc(fsdb,'studentDocuments',b.dataset.no),{status:'REJECTED',reviewNotes:n.slice(0,200),reviewedBy:S.user.uid,reviewedAt:iso()}); await audit('ADMIN_DOCUMENT_REJECTED',b.dataset.no,{reason:n}); admDocs(root); });
+}
+async function admApps(root){
+  const apps=(await admAll('applications')).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+  const editable=['SUBMITTED','UNDER_REVIEW','INTERVIEW'];
+  root.innerHTML=`<div class="tblwrap"><table class="tbl"><thead><tr><th>${LANG==='hi'?'पद':'Job'}</th><th>${t('ref_no')}</th><th>${LANG==='hi'?'स्थिति':'Status'}</th><th>${LANG==='hi'?'अपडेट':'Updated'}</th><th></th></tr></thead>
+    <tbody>${apps.map(a=>`<tr><td><b>${esc(a.jobTitle)}</b><div class="faint">${esc(a.organization||'')}</div></td><td>${esc(a.referenceNumber||'—')}</td>
+      <td><span class="badge b-blue">${labelSt(a.status)}</span></td><td class="faint">${fmtDT(a.updatedAt)}</td>
+      <td>${editable.includes(a.status)?`<select class="input" style="min-width:150px;padding:7px" data-ast="${a.id}">${['UNDER_REVIEW','INTERVIEW','SUCCESS','REJECTED'].map(s=>`<option ${a.status===s?'selected':''} value="${s}">${labelSt(s)}</option>`).join('')}</select>`:''}</td></tr>`).join('')||'<tr><td colspan="5" class="center faint">—</td></tr>'}</tbody></table></div>`;
+  $$('[data-ast]').forEach(sel=>sel.onchange=async()=>{
+    const a=apps.find(x=>x.id===sel.dataset.ast);
+    await updateDoc(doc(fsdb,'applications',sel.dataset.ast),{ status:sel.value, updatedAt:iso(),
+      history:[...(a.history||[]),{status:sel.value, at:iso(), by:'admin'}] });
+    try{ await addDoc(colRef('notifications'),{ userId:a.userId, title:labelSt(sel.value)+' — '+a.jobTitle, body:LANG==='hi'?'आपके आवेदन की स्थिति अपडेट हुई: ':'Application status updated: '+labelSt(sel.value), type:'APPLICATION', link:'applications', read:false, createdAt:iso() }); }catch(e){}
+    await audit('ADMIN_APPLICATION_STATUS', sel.dataset.ast, { status:sel.value }); admApps(root);
+  });
+}
+async function admWallet(root){
+  const reqs=(await admAll('topupRequests')).filter(r=>r.status==='PENDING');
+  const tx=(await admAll('walletTransactions')).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||''))).slice(0,50);
+  root.innerHTML=`<h3 class="mb16">${t('topup_pending')} (${reqs.length})</h3>
+    ${reqs.length? `<div class="tblwrap mb16"><table class="tbl"><thead><tr><th>${t('email_gmail')}</th><th>${t('amount')}</th><th>${t('txn_id')}</th><th>${t('payer')}</th><th></th></tr></thead>
+      <tbody>${reqs.map(r=>`<tr><td>${esc(r.email)}</td><td><b>${money(r.amount)}</b></td><td>${esc(r.txnId)}</td><td>${esc(r.payerName||'—')}</td>
+      <td class="row"><button class="btn sm green" data-ok="${r.id}" data-amt="${r.amount}" data-uid="${r.userId}" data-txn="${esc(r.txnId)}">${svg.check} ${t('approve_tx')}</button>
+      <button class="btn sm danger" data-no="${r.id}">${t('reject_tx')}</button></td></tr>`).join('')}</tbody></table></div>`
+      : `<div class="empty mb16">${svg.wallet}<p>—</p></div>`}
+    <h3 class="mb16">${t('ledger')}</h3>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>${LANG==='hi'?'तारीख':'Date'}</th><th>${LANG==='hi'?'प्रकार':'Type'}</th><th>${t('amount')}</th><th>${t('txn_id')}/${LANG==='hi'?'संदर्भ':'Reference'}</th></tr></thead>
+      <tbody>${tx.map(r=>`<tr><td>${fmtDT(r.createdAt)}</td><td>${t('tx_'+r.type)}</td><td><b>${(r.type==='DEBIT'?'−':'+')+money(r.amount)}</b></td><td class="faint">${esc(r.reference||'')}</td></tr>`).join('')||'<tr><td colspan="4" class="center faint">—</td></tr>'}</tbody></table></div>`;
+  $$('[data-ok]').forEach(b=>b.onclick=async()=>{
+    const amt=Number(b.dataset.amt), uid=b.dataset.uid, txn=b.dataset.txn;
+    try{
+      const wref=doc(fsdb,'wallets',uid);
+      await runTransactionCompat(wref,(w)=>{ const cur=Number(w?.balance)||0; const next=cur+amt;
+        if(next<WALLET.MIN_BALANCE||next>WALLET.MAX_BALANCE) throw new Error('Balance cap ₹'+WALLET.MAX_BALANCE+' exceeded'); return {balance:next, updatedAt:iso()}; });
+      await addDoc(colRef('walletTransactions'),{ userId:uid, type:'CREDIT', source:'TOPUP', amount:amt, status:'VERIFIED', reference:txn, description:'UPI top-up verified by admin', createdAt:iso(), byAdmin:S.user.uid });
+      await updateDoc(doc(fsdb,'topupRequests',b.dataset.ok),{status:'VERIFIED', verifiedBy:S.user.uid, verifiedAt:iso()});
+      try{ await addDoc(colRef('notifications'),{ userId:uid, title:LANG==='hi'?'वॉलेट क्रेडिट हुआ':'Wallet credited', body:money(amt)+' (TXN '+txn+')', type:'WALLET', link:'wallet', read:false, createdAt:iso() }); }catch(e){}
+      await audit('ADMIN_WALLET_CREDIT', txn, { uid, amount:amt }); toast(t('credited_ok'),'ok'); admWallet(root);
+    }catch(e){ toast(e?.message||'Error','bad'); }
+  });
+  $$('[data-no]').forEach(b=>b.onclick=async()=>{ await updateDoc(doc(fsdb,'topupRequests',b.dataset.no),{status:'REJECTED', verifiedBy:S.user.uid, verifiedAt:iso()}); await audit('ADMIN_TOPUP_REJECTED',b.dataset.no,{}); admWallet(root); });
+}
+async function runTransactionCompat(docRef, fn){
+  const { runTransaction } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js');
+  await runTransaction(fsdb, async(tr)=>{ const w=await tr.get(docRef); const next=fn(w.exists()?w.data():null); tr.set(docRef, next, {merge:true}); });
+}
+async function admNotifs(root){
+  root.innerHTML=`<div class="card mb16"><h3>${t('send_notif')}</h3>
+    <div class="grid2 mt8">
+      <label class="f"><span>${LANG==='hi'?'प्राप्तकर्ता':'Recipient'}</span>
+        <select class="input" id="n-to"><option value="ALL">${t('to_all')}</option><option value="ONE">${t('to_one')}</option></select></label>
+      <label class="f"><span>${t('email_gmail')}</span><input class="input" id="n-email" placeholder="name@gmail.com" disabled></label>
+      <label class="f"><span>${t('notif_title')} <span class="req">*</span></span><input class="input" id="n-title" maxlength="120"></label>
+      <label class="f"><span>${LANG==='hi'?'लिंक (वैकल्पिक)':'Link (optional)'}</span><select class="input" id="n-link"><option value=""></option><option value="jobs">${t('nav_jobs')}</option><option value="recommended">${t('nav_reco')}</option><option value="applications">${t('nav_apps')}</option><option value="wallet">${t('nav_wallet')}</option></select></label>
+    </div>
+    <label class="f"><span>${t('notif_body')} <span class="req">*</span></span><textarea class="input" id="n-body" maxlength="600"></textarea></label>
+    <button class="btn primary" id="n-send">${t('send')}</button></div>`;
+  $('#n-to').onchange=()=>{ $('#n-email').disabled = $('#n-to').value!=='ONE'; };
+  $('#n-send').onclick=async(e)=>{
+    const title=$('#n-title').value.trim(), body=$('#n-body').value.trim(), link=$('#n-link').value;
+    if(!title||!body) return toast(LANG==='hi'?'शीर्षक और संदेश आवश्यक।':'Title and message required.','bad');
+    busy(e.target,true,t('send'));
+    try{
+      const mk=(uid)=>addDoc(colRef('notifications'),{ userId:uid, title, body, link, type:'GENERAL', read:false, createdAt:iso(), fromAdmin:S.user.uid });
+      if($('#n-to').value==='ALL'){
+        const users=await admAll('users',500);
+        const active=users.filter(u=>u.status==='ACTIVE');
+        for(const arr of chunk(active.map(u=>u.uid),400)) await Promise.all(arr.map(mk));
+        toast(t('sent_ok')+' ('+active.length+')','ok');
+      } else {
+        const email=$('#n-email').value.trim().toLowerCase();
+        const users=await admAll('users'); const u=users.find(x=>String(x.email).toLowerCase()===email);
+        if(!u) return toast(LANG==='hi'?'छात्र नहीं मिला।':'Student not found.','bad');
+        await mk(u.uid); toast(t('sent_ok'),'ok');
+      }
+      await audit('ADMIN_NOTIFICATION_SENT', title, {});
+    }catch(err){ toast(err?.message||'Error','bad'); }
+    busy(e.target,false);
+  };
+}
+const chunk=(arr,n)=>{ const out=[]; for(let i=0;i<arr.length;i+=n) out.push(arr.slice(i,i+n)); return out; };
+async function admSecurity(root){
+  const logs=(await admAll('auditLogs',150)).sort((a,b)=>String(b.at||'').localeCompare(String(a.at||'')));
+  root.innerHTML=`<p class="faint mb16">${LANG==='hi'?'ऑडिट लॉग इम्युटेबल हैं — केवल पढ़ें। विस्तृत सर्वर-पक्ष ऑडिट के लिए Cloud Functions डिप्लॉय करें।':'Audit logs are immutable — read-only. For full server-side auditing deploy Cloud Functions.'}</p>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>${LANG==='hi'?'समय':'Time'}</th><th>${LANG==='hi'?'कर्ता':'Actor'}</th><th>${LANG==='hi'?'कार्य':'Action'}</th><th>${LANG==='hi'?'लक्ष्य':'Target'}</th></tr></thead>
+    <tbody>${logs.map(l=>`<tr><td class="faint">${fmtDT(l.at)}</td><td>${esc(l.actorEmail||l.actorId||'—')}</td><td><span class="badge b-blue">${esc(l.action)}</span></td><td class="faint">${esc(String(l.target||''))}</td></tr>`).join('')||'<tr><td colspan="4" class="center faint">—</td></tr>'}</tbody></table></div>`;
+}
+
+/* ================================================================
+   LEGAL PAGES
+   ================================================================ */
+const LEGAL = {
+  privacy:{
+    title:{hi:'गोपनीयता नीति',en:'Privacy Policy'},
+    body:{hi:[
+      ['परिचय','हम ('+PORTAL_SETTINGS.ownerName+') छात्रों को नौकरी सूचना, AI मैचिंग और आवेदन सहायता देने के लिए यह पोर्टल संचालित करते हैं। यह नीति बताती है कि कौन-सा डेटा एकत्र होता है, कैसे उपयोग होता है और आपके अधिकार क्या हैं।'],
+      ['हम क्या एकत्र करते हैं','खाता डेटा: पूरा नाम, Gmail पता, मोबाइल नंबर, जन्म तिथि। प्रोफ़ाइल डेटा: शिक्षा, कौशल, राज्य/ज़िला, आरक्षण श्रेणी, अनुभव। दस्तावेज़: आपके द्वारा अपलोड की गई फ़ाइलें (आधार, मार्कशीट आदि)। तकनीकी लॉग: लॉगिन, दस्तावेज़-एक्सेस और सुरक्षा-संबंधी घटनाएँ। हम पासवर्ड सादे रूप में कभी नहीं रखते — पासवर्ड Firebase Authentication में सुरक्षित रहता है।'],
+      ['डेटा का उपयोग','आपका डेटा केवल इन कामों के लिए: खाता बनाना और सत्यापित करना; योग्यता के अनुसार नौकरियाँ मैच करना; आवेदन ड्राफ्ट तैयार करना; सूचनाएँ और डेडलाइन अलर्ट भेजना; सुरक्षा और ऑडिट। हम आपका डेटा बेचते नहीं हैं और विज्ञापन नेटवर्क से साझा नहीं करते।'],
+      ['दस्तावेज़ों की गोपनीयता','दस्तावेज़ निजी Storage फ़ोल्डर (आपकी UID के नाम) में रहते हैं। केवल आप (और नियमों के अधीन, सत्यापन हेतु एडमिन) उन्हें खोल सकते हैं। हर एक्सेस लॉग होता है। हम दस्तावेज़ों के सार्वजनिक URL नहीं बनाते।'],
+      ['तीसरे पक्ष','पोर्टल Google Firebase (Authentication, Firestore, Storage) पर बना है — डेटा प्रोसेसिंग Google Cloud की शर्तों के अधीन है। आवेदन जमा करते समय आप संबंधित सरकारी/निजी संस्था की आधिकारिक साइट पर जाते हैं — वहाँ की नीतियाँ उस संस्था की होती हैं।'],
+      ['आपके अधिकार','अपना डेटा देखना/निर्यात करना (खाता सेटिंग्स → मेरा डेटा डाउनलोड), गलत डेटा सुधारना, खाता हटाने का अनुरोध करना, और शिकायत करना। विवरण के लिए “डेटा प्रतिधारण नीति” और “शिकायत संपर्क” देखें।'],
+      ['संपर्क','गोपनीयता से जुड़े प्रश्न: '+PORTAL_SETTINGS.grievanceEmail],
+    ],en:[
+      ['Introduction','We ('+PORTAL_SETTINGS.ownerName+') operate this portal to provide students with job information, AI matching and application assistance. This policy explains what data we collect, how it is used, and your rights.'],
+      ['What we collect','Account data: full name, Gmail address, mobile number, date of birth. Profile data: education, skills, state/district, reservation category, experience. Documents: files you upload (Aadhaar, marksheets, etc.). Technical logs: login, document-access and security events. We never store passwords in plain text — passwords are handled by Firebase Authentication.'],
+      ['How data is used','Only for: creating and verifying your account; matching jobs to your eligibility; preparing application drafts; sending notifications and deadline alerts; security and audit. We do not sell your data or share it with advertising networks.'],
+      ['Document confidentiality','Documents remain in a private Storage folder named after your UID. Only you (and, under the rules, an admin for verification) can open them. Every access is logged. We never create public URLs for documents.'],
+      ['Third parties','The portal is built on Google Firebase (Authentication, Firestore, Storage) — processing is governed by Google Cloud terms. When you submit an application you visit the official government/private site — their policies apply there.'],
+      ['Your rights','View/export your data (Account settings → Download my data), correct inaccurate data, request account deletion, and raise a grievance. See “Data Retention Policy” and “Grievance Contact” for details.'],
+      ['Contact','Privacy questions: '+PORTAL_SETTINGS.grievanceEmail],
+    ]},
+  },
+  terms:{
+    title:{hi:'नियम और शर्तें',en:'Terms & Conditions'},
+    body:{hi:[
+      ['स्वीकृति','इस पोर्टल का उपयोग करके आप इन शर्तों, गोपनीयता नीति और दस्तावेज़ प्रबंधन नीति से सहमत होते हैं।'],
+      ['पात्रता और खाता','खाता केवल छात्रों के लिए मुफ़्त है। रजिस्ट्रेशन के लिए मान्य Gmail पता अनिवार्य है। सही और अपना सच्चा डेटा देना आपकी ज़िम्मेदारी है। झूठी जानकारी पर खाता निलंबित हो सकता है। एक व्यक्ति, एक खाता।'],
+      ['नौकरी सूचना की सटीकता','हम नौकरी विवरण आधिकारिक स्रोतों से लेते हैं और स्रोत URL दिखाते हैं, परंतु अंतिम जानकारी/नियम संबंधित संस्था की आधिकारिक अधिसूचना की ही मानी जाएगी। आवेदन से पहले सदैव आधिकारिक अधिसूचना पढ़ें।'],
+      ['आवेदन प्रक्रिया','पोर्टल ड्राफ्ट और प्री-फिलिंग में सहायता करता है। वास्तविक जमा सदैव आधिकारिक फ़ॉर्म पर आप स्वयं करते हैं। पोर्टल आपके बिना कोई आवेदन जमा नहीं करता, कोई योग्यता/अंक/अनुभव नहीं बनाता और न ही CAPTCHA/OTP/शुल्क जैसी आधिकारिक चरणों को बायपास करता है।'],
+      ['वॉलेट','वॉलेट सीमा ₹100 (न्यूनतम रिचार्ज) से ₹1,000 (अधिकतम बैलेंस) तक है। क्रेडिट केवल एडमिन-सत्यापित UPI भुगतान के बाद होता है। सभी लेन-देन लेजर में रिकॉर्ड होते हैं। पोर्टल कोई पेमेंट-गेटवे सर्विस प्रदाता नहीं है।'],
+      ['स्वीकार्य उपयोग','पोर्टल का दुरुपयोग (दूसरों का डेटा चुराना, स्वचालित स्क्रैपिंग, सुरक्षा नियमों को तोड़ना) प्रतिबंधित है — ऐसा करने पर पहुँच रद्द की जा सकती है।'],
+      ['अस्वीकरण','पोर्टल “जैसा है” दिया जाता है। रोजगार की कोई गारंटी नहीं। AI सुझाव सहायक हैं, निर्णय आपके हैं। किसी भी हानि के लिए पोर्टल ज़िम्मेदार नहीं होगा (कानून द्वारा अनुमत सीमा तक)।'],
+      ['शर्तों में बदलाव','समय-समय पर शर्तें अद्यतन हो सकती हैं; बदलाव इसी पृष्ठ पर प्रकाशित होंगे।'],
+    ],en:[
+      ['Acceptance','By using this portal you agree to these terms, the Privacy Policy and the Document Processing Policy.'],
+      ['Eligibility & accounts','Accounts are free and only for students. A valid Gmail address is required to register. You are responsible for providing accurate, truthful data; false information may lead to suspension. One person, one account.'],
+      ['Accuracy of job listings','We source job details from official feeds and show the source URL, but the final authority is the concerned organization\u2019s official notification. Always read the official notification before applying.'],
+      ['Application process','The portal assists with drafts and pre-filling. Actual submission is always made by you on the official form. The portal never submits an application without you, never fabricates qualifications/marks/experience, and never bypasses official steps such as CAPTCHA/OTP/fees.'],
+      ['Wallet','Wallet limits: ₹100 (minimum top-up) to ₹1,000 (maximum balance). Credits happen only after an admin-verified UPI payment. All transactions are recorded in a ledger. The portal is not a payment-gateway service provider.'],
+      ['Acceptable use','Misusing the portal (stealing others\u2019 data, automated scraping, breaking security rules) is prohibited — access may be revoked.'],
+      ['Disclaimer','The portal is provided “as is”. There is no guarantee of employment. AI suggestions are advisory; decisions are yours. To the extent permitted by law, the portal is not liable for any loss.'],
+      ['Changes','These terms may be updated from time to time; changes will be published on this page.'],
+    ]},
+  },
+  docpolicy:{
+    title:{hi:'दस्तावेज़ प्रबंधन नीति',en:'Document Processing Policy'},
+    body:{hi:[
+      ['उद्देश्य','यह नीति बताती है कि आपके दस्तावेज़ (आधार, मार्कशीट, प्रमाणपत्र, फोटो, हस्ताक्षर आदि) कैसे संग्रहित, एक्सेस और सुरक्षित रखे जाते हैं।'],
+      ['भंडारण','दस्तावेज़ Cloud Storage में आपकी व्यक्तिगत UID-फ़ोल्डर में जाते हैं। मेटाडेटा (प्रकार, फ़ाइल-नाम, आकार, हैश, स्थिति) Firestore में रहता है। फ़ाइलें सार्वजनिक नहीं हैं — कोई सार्वजनिक URL नहीं।'],
+      ['पहुँच नियम','पढ़ने का अधिकार: केवल आप और (सत्यापन हेतु) अधिकृत एडमिन। हर देखने/डाउनलोड की घटना documentAccess/audit लॉग में दर्ज होती है। फ़ाइल डाउनलोड अधिकृत, संक्षिप्त-समय पहुँच के माध्यम से होता है।'],
+      ['स्वीकार्य फ़ाइलें','केवल PDF/JPG/PNG, अधिकतम 10MB प्रति फ़ाइल, 14 परिभाषित प्रकार। गलत प्रकार/आकार अपलोड सिस्टम स्वयं रोकता है।'],
+      ['सत्यापन','अपलोड के बाद दस्तावेज़ “पेंडिंग” रहता है। एडमिन फ़ाइल खोलकर VERIFIED/REJECTED करता है; अस्वीकृति का कारण दर्ज होता है।'],
+      ['शेयरिंग नीति','आपका दस्तावेज़ किसी तीसरे पक्ष (नियोक्ता/संस्था) को तभी दिया जाएगा जब (क) आप स्वयं आवेदन में संलग्न करें, या (ख) कानूनी अनिवार्यता हो। पोर्टल स्वतः दस्तावेज़ नहीं भेजता।'],
+      ['हटाना','आप किसी भी दस्तावेज़ को कभी भी हटा सकते हैं (Storage + मेटाडेटा दोनों)। खाता हटाने पर नीति के अनुसार दस्तावेज़ हटाए जाते हैं।'],
+    ],en:[
+      ['Purpose','This policy explains how your documents (Aadhaar, marksheets, certificates, photo, signature, etc.) are stored, accessed and protected.'],
+      ['Storage','Documents go into Cloud Storage inside your personal UID-named folder. Metadata (type, file name, size, hash, status) is stored in Firestore. Files are private — there are no public URLs.'],
+      ['Access rules','Read access: only you and (for verification) authorized admins. Every view/download event is recorded in document-access/audit logs. Downloads happen through authorized, short-lived access.'],
+      ['Acceptable files','Only PDF/JPG/PNG, max 10MB per file, across 14 defined types. The system blocks wrong types/sizes automatically.'],
+      ['Verification','After upload a document stays “Pending”. An admin opens the file and marks VERIFIED/REJECTED; rejection reasons are recorded.'],
+      ['Sharing policy','Your document is shared with a third party (employer/agency) only if (a) you attach it yourself in an application, or (b) there is a legal requirement. The portal never sends documents automatically.'],
+      ['Deletion','You can delete any document at any time (both Storage and metadata). On account deletion, documents are removed per policy.'],
+    ]},
+  },
+  retention:{
+    title:{hi:'डेटा प्रतिधारण नीति',en:'Data Retention Policy'},
+    body:{hi:[
+      ['सिद्धांत','हम डेटा उतना समय रखते हैं जितना उद्देश्य के लिए आवश्यक हो। सक्रिय खातों का डेटा तब तक रहता है जब तक खाता चालू है।'],
+      ['निष्क्रियता',''+PORTAL_SETTINGS.dataRetentionMonths+' माह तक उपयोग न होने पर हम आपसे संपर्क कर सकते हैं; तय समय में प्रतिक्रिया न मिलने पर खाता निष्क्रिय कर दिया जाएगा और दस्तावेज़ हटाए जा सकते हैं।'],
+      ['खाता हटाने पर','प्रोफ़ाइल, शिक्षा, दस्तावेज़ और सूचनाएँ हटाई जाती हैं। आवश्यक वित्तीय रिकॉर्ड (लेन-देन लेजर) और सुरक्षा/ऑडिट लॉग कानूनी अवधि तक रखे जा सकते हैं।'],
+      ['लॉग','लॉगिन/ऑडिट लॉग सुरक्षा हेतु अधिकतम 12 माह रखे जाते हैं (सर्वर/फ़ंक्शन पक्ष)।'],
+      ['पूछताछ','प्रतिधारण से जुड़े प्रश्न: '+PORTAL_SETTINGS.grievanceEmail],
+    ],en:[
+      ['Principle','We keep data only as long as necessary for the purpose. Active account data remains while the account is live.'],
+      ['Inactivity','If an account is unused for '+PORTAL_SETTINGS.dataRetentionMonths+' months we may contact you; without a response in the given time the account is deactivated and documents may be removed.'],
+      ['On deletion','Profile, education, documents and notifications are removed. Necessary financial records (transaction ledger) and security/audit logs may be retained for the legally required period.'],
+      ['Logs','Login/audit logs are kept server-side for security for a maximum of 12 months.'],
+      ['Enquiries','Retention questions: '+PORTAL_SETTINGS.grievanceEmail],
+    ]},
+  },
+};
+function legalDeletionHTML(){
+  return LANG==='hi'
+   ? [['अनुरोध कैसे करें','लॉगिन करके “खाता सेटिंग्स → खाता हटाने का अनुरोध” में जाएं — अनुरोध आपके खाते से जुड़ जाएगा। या ईमेल करें: '+PORTAL_SETTINGS.grievanceEmail+' (विषय: Account Deletion Request, अपना पंजीकृत Gmail लिखें)।'],
+      ['क्या हटेगा','प्रोफ़ाइल, शिक्षा, दस्तावेज़, आवेदन और सूचनाएँ। क्या रहेगा: वित्तीय लेजर और ऑडिट रिकॉर्ड कानूनी अवधि तक (डेटा प्रतिधारण नीति देखें)।'],
+      ['समय-सीमा','सत्यापन के बाद अधिकतम 30 दिन में हटाना पूर्ण और पुष्टि-ईमेल।'],
+      ['शिकायत','अनुरोध पर आपत्ति हो तो: '+PORTAL_SETTINGS.grievanceEmail+' / '+PORTAL_SETTINGS.grievancePhone],
+      ['स्वीकारोक्ति','अनुरोध भेजने के लिए नीचे फ़ॉर्म भरें — लॉगिन होने पर अनुरोध स्वतः आपके खाते से जुड़ जाएगा।']]
+   : [['How to request','Login and go to “Account settings → Request account deletion” — the request is linked to your account. Or email '+PORTAL_SETTINGS.grievanceEmail+' (subject: Account Deletion Request, include your registered Gmail).'],
+      ['What is removed','Profile, education, documents, applications and notifications. What remains: financial ledger and audit records for the legally required period (see Data Retention Policy).'],
+      ['Timeline','Deletion completed and confirmed by email within a maximum of 30 days after verification.'],
+      ['Grievance','If you disagree with a decision: '+PORTAL_SETTINGS.grievanceEmail+' / '+PORTAL_SETTINGS.grievancePhone],
+      ['Acknowledgement','Fill the form below to submit a request — when logged in, it is automatically linked to your account.']];
+}
+function legalGrievanceHTML(){
+  const O=PORTAL_SETTINGS;
+  return LANG==='hi'
+   ? [['शिकायत अधिकारी',esc(O.ownerName)],
+      ['ईमेल',esc(O.grievanceEmail)],
+      ['फ़ोन',esc(O.grievancePhone)],
+      ['डाक पता',esc(O.postalAddress)],
+      ['प्रक्रिया','शिकायत ईमेल/फ़ोन/डाक से भेजें। स्वीकारोक्ति 48 घंटे में; समाधान 15 दिन में। संतुष्ट न होने पर लागू कानून के अंतर्गत उपाय उपलब्ध हैं।'],
+      ['सुरक्षा घटनाएँ','डेटा/सुरक्षा घटना दिखने पर तुरंत ईमेल करें — विषय: Security Incident।']]
+   : [['Grievance officer',esc(O.ownerName)],
+      ['Email',esc(O.grievanceEmail)],
+      ['Phone',esc(O.grievancePhone)],
+      ['Postal address',esc(O.postalAddress)],
+      ['Process','Send complaints by email/phone/post. Acknowledgement within 48 hours; resolution within 15 days. If unsatisfied, remedies under applicable law are available.'],
+      ['Security incidents','If you notice a data/security incident, email immediately — subject: Security Incident.']];
+}
+function renderLegal(which){
+  currentLegal = which||currentLegal;
+  $('#bottomnav').classList.add('hide');
+  const items=[['privacy',t('legal_privacy')],['terms',t('legal_terms')],['docpolicy',t('legal_docpolicy')],['retention',t('legal_retention')],['grievance',t('legal_grievance')],['deletion',t('legal_deletion')]];
+  let inner='';
+  if(currentLegal==='deletion'){
+    inner=legalDeletionHTML().map(s=>`<h3>${s[0]}</h3><p>${s[1]}</p>`).join('')+
+      (S.user? `<label class="f"><span>${t('del_reason')}</span><textarea class="input" id="ld-reason" maxlength="500"></textarea></label><button class="btn primary" id="ld-send">${t('legal_submit')}</button>`
+              : `<div class="card mt16" style="box-shadow:none;background:var(--grey)"><p style="font-size:13.5px">${t('legal_del_form_note')}</p><a class="btn primary mt16" href="#/login" data-nav>${t('login')}</a></div>`);
+  } else if(currentLegal==='grievance'){
+    inner=legalGrievanceHTML().map(s=>`<div class="kv"><span>${s[0]}</span><b>${s[1]}</b></div>`).join('')+legalGrievanceHTML().slice(4).map(s=>`<h3 class="mt16">${s[0]}</h3><p>${s[1]}</p>`).join('');
+  } else {
+    const d=LEGAL[currentLegal]; inner=(d.body[LANG]||d.body.en).map(s=>`<h3>${s[0]}</h3><p>${s[1]}</p>`).join('');
+  }
+  $('#view').innerHTML=`<div class="wrap" style="padding-top:26px;padding-bottom:60px">
+    <div class="row mb16"><a class="btn ghost sm" href="#/" data-nav>${svg.x} ${t('legal_back')}</a></div>
+    <div class="legal"><h2>${currentLegal==='deletion'?t('legal_deletion'):currentLegal==='grievance'?t('legal_grievance'):LEGAL[currentLegal].title[LANG]}</h2>
+      <div class="updated">${t('updated_on')}: ${fmtDate(PORTAL_SETTINGS.lastUpdated)} · ${esc(PORTAL_SETTINGS.ownerName)}</div>
+      ${inner}</div>
+    <div class="row mt24" style="justify-content:center;gap:8px">${items.map(i=>`<a class="btn sm ${currentLegal===i[0]?'primary':'ghost'}" href="#/legal/${i[0]}" data-nav>${i[1]}</a>`).join('')}</div></div>`;
+  const ls=$('#ld-send'); ls&&(ls.onclick=async()=>{
+    try{ await addDoc(colRef('deletionRequests'),{ userId:S.user.uid, email:S.user.email, reason:$('#ld-reason').value.trim(), status:'PENDING', requestedAt:iso() });
+      await audit('ACCOUNT_DELETION_REQUESTED',S.user.uid,{}); toast(t('del_sent'),'ok'); ls.disabled=true;
+    }catch(e){ toast(e?.message,'bad'); } });
+}
+
+/* ================================================================
+   BOOT
+   ================================================================ */
+function render404(){ renderLanding(); }
+window.addEventListener('hashchange', route);
+function bootFailback(){
+  if(S.booted) return;
+  S.booted = true;
+  route();
+  toast(LANG==='hi'
+    ? 'Firebase से कनेक्शन नहीं हो पाया — FIREBASE_CONFIG और इंटरनेट कनेक्शन जांचें।'
+    : 'Could not connect to Firebase — check FIREBASE_CONFIG and your internet connection.', 'bad');
+}
+if(configMissing){ renderSetup(); setTimeout(route, 0); }
+else {
+  try{
+    initFirebase();
+    onAuthStateChanged(auth, async (user)=>{
+      S.user = user || null;
+      S.emailVerified = !!user?.emailVerified;
+      S.isAdmin = false; S.profile=null; S.edu=[]; S.docs=[]; S.apps=[]; S.tx=[]; S.notifs=[]; S.balance=0;
+      if(user){
+        try{ const tok = await user.getIdTokenResult(); S.isAdmin = tok.claims?.admin === true; }catch(e){}
+        try{ await loadMine(); }catch(e){ console.warn(e); }
+      }
+      S.booted = true;
+      route();
+      clearTimeout(bootTimer);
+    });
+    var bootTimer = setTimeout(bootFailback, 6000);
+  }catch(err){
+    console.error(err);
+    setTimeout(bootFailback, 0);
+  }
+}
+</script>
+<!-- ============================================================
+FIRESTORE SECURITY RULES — paste in Firebase Console → Firestore → Rules
+(extends the project rules with topupRequests + admin-managed ledger)
+============================================================
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+    function isAdmin() { return isSignedIn() && request.auth.token.admin == true; }
+    function isVerifiedStudent() {
+      return isSignedIn() && request.auth.token.admin != true
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.status == 'ACTIVE';
+    }
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId) && request.resource.data.role == 'STUDENT' && request.resource.data.status == 'ACTIVE';
+      allow update: if (isOwner(userId)
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.status == resource.data.status
+          && request.resource.data.profileVerified == resource.data.profileVerified)
+        || isAdmin();
+      allow delete: if false;
+    }
+    match /studentEducation/{eduId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow write: if isVerifiedStudent() && request.resource.data.userId == request.auth.uid;
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+    match /studentDocuments/{docId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isVerifiedStudent() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin();
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+    match /documentAccess/{logId} {
+      allow read: if isAdmin() || isOwner(resource.data.accessorId);
+      allow create: if isSignedIn();
+      allow update, delete: if false;
+    }
+    match /jobs/{jobId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /jobMatches/{matchId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow write: if false;
+    }
+    match /applications/{appId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isVerifiedStudent() && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'DRAFT' && request.resource.data.referenceNumber == '';
+      allow update: if (isOwner(resource.data.userId)
+          && request.resource.data.userId == resource.data.userId
+          && request.resource.data.status in ['DRAFT','READY','APPROVED','SUBMITTED','WITHDRAWN'])
+        || isAdmin();
+      allow delete: if false;
+    }
+    match /wallets/{walletId} {
+      allow read: if isOwner(walletId) || isAdmin();
+      allow write: if isAdmin()
+        && request.resource.data.balance >= 0 && request.resource.data.balance <= 1000;
+    }
+    match /walletTransactions/{txId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isAdmin();
+      allow update, delete: if false;
+    }
+    match /topupRequests/{reqId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isVerifiedStudent() && request.resource.data.userId == request.auth.uid
+        && request.resource.data.amount >= 100 && request.resource.data.amount <= 1000;
+      allow update, delete: if isAdmin();
+    }
+    match /notifications/{notifId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow update: if isOwner(resource.data.userId)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+      allow create, delete: if isAdmin();
+    }
+    match /deletionRequests/{reqId} {
+      allow read: if isOwner(resource.data.userId) || isAdmin();
+      allow create: if isVerifiedStudent() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+    match /emailLogs/{logId} { allow read: if isAdmin(); allow write: if false; }
+    match /admins/{adminId}  { allow read: if isAdmin(); allow write: if false; }
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isSignedIn();
+      allow update, delete: if false;
+    }
+    match /loginEvents/{logId} { allow read: if isAdmin(); allow write: if false; }
+    match /systemSettings/{key} { allow read: if isAdmin(); allow write: if false; }
+    match /{document=**} { allow read, write: if false; }
+  }
+}
+
+STORAGE RULES — Firebase Console → Storage → Rules
+--------------------------------------------------
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.admin == true; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+    match /studentDocuments/{userId}/{allPaths=**} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId)
+        && request.resource.size <= 10 * 1024 * 1024
+        && request.resource.contentType in ['application/pdf','image/jpeg','image/png'];
+      allow update: if false;
+      allow delete: if isOwner(userId) || isAdmin();
+    }
+    match /{allPaths=**} { allow read, write: if false; }
+  }
+}
+
+MAKE THE FIRST ADMIN (one time, any machine with Node.js):
+  npm install firebase-admin
+  node -e "const a=require('firebase-admin');a.initializeApp({credential:a.credential.cert(require('./serviceAccount.json'))});a.auth().getUserByEmail('YOUR_ADMIN@gmail.com').then(u=>a.auth().setCustomUserClaims(u.uid,{admin:true})).then(()=>console.log('done'))"
+Then logout + login again on the site — the Admin Panel appears.
+============================================================ -->
+</body>
+</html>
